@@ -4,6 +4,10 @@ import { useAuth } from "@/lib/auth";
 import { StatCard } from "@/components/ui/StatCard";
 import { DataTable, type DataTableColumn } from "@/components/ui/DataTable";
 import { ManagementKpiGrid } from "@/components/dashboard/ManagementKpiGrid";
+import { RevenueTrendChart } from "@/components/consultant/RevenueTrendChart";
+import { AIComplianceEngine } from "@/components/consultant/AIComplianceEngine";
+import { PaymentGateway } from "@/components/consultant/PaymentGateway";
+import { SystemIntegrations } from "@/components/consultant/SystemIntegrations";
 import {
   CONSULTANT_SUMMARY,
   MANAGEMENT_KPIS,
@@ -13,6 +17,7 @@ import {
   type RevenueMonthRow,
 } from "@/lib/mockData";
 import type { ConsultantProfile } from "@/lib/types";
+import { Award, MapPin, ShieldCheck, Users, Wallet } from "lucide-react";
 
 const columns: DataTableColumn<RevenueMonthRow>[] = [
   { key: "period", header: "Period", render: (r) => r.period },
@@ -30,11 +35,11 @@ export default function ConsultantPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="card">
-        <h1 className="text-lg font-bold text-slate-900">
-          {profile.firstName} {profile.surname}
+      <div className="card bg-gradient-to-r from-zra-green-dark to-zra-green text-white">
+        <h1 className="text-lg font-bold">
+          Welcome back, {profile.firstName} {profile.surname}
         </h1>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-emerald-100">
           Consultant No. {profile.consultantNumber} · {profile.region} Region
         </p>
       </div>
@@ -42,13 +47,26 @@ export default function ConsultantPage() {
       <section>
         <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Consultant Dashboard</h2>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          <StatCard label="Consultant Number" value={CONSULTANT_SUMMARY.consultantNumber} />
-          <StatCard label="Region" value={CONSULTANT_SUMMARY.region} />
-          <StatCard label="Assigned Practitioners" value={CONSULTANT_SUMMARY.assignedPractitioners.toString()} />
-          <StatCard label="Assigned Taxpayers" value={CONSULTANT_SUMMARY.assignedTaxpayers.toLocaleString()} />
-          <StatCard label="Revenue Collection" value={zmwCompact(CONSULTANT_SUMMARY.revenueCollection)} />
-          <StatCard label="Compliance Rate" value={`${CONSULTANT_SUMMARY.complianceRate}%`} deltaTone="positive" />
+          <StatCard label="Consultant Number" value={CONSULTANT_SUMMARY.consultantNumber} icon={<Award className="h-4 w-4" />} tone="purple" />
+          <StatCard label="Region" value={CONSULTANT_SUMMARY.region} icon={<MapPin className="h-4 w-4" />} tone="blue" />
+          <StatCard label="Assigned Practitioners" value={CONSULTANT_SUMMARY.assignedPractitioners.toString()} icon={<Users className="h-4 w-4" />} tone="blue" />
+          <StatCard label="Assigned Taxpayers" value={CONSULTANT_SUMMARY.assignedTaxpayers.toLocaleString()} icon={<Users className="h-4 w-4" />} tone="green" />
+          <StatCard label="Revenue Collection" value={zmwCompact(CONSULTANT_SUMMARY.revenueCollection)} icon={<Wallet className="h-4 w-4" />} tone="green" />
+          <StatCard
+            label="Compliance Rate"
+            value={`${CONSULTANT_SUMMARY.complianceRate}%`}
+            deltaTone="positive"
+            delta="On target"
+            icon={<ShieldCheck className="h-4 w-4" />}
+            tone="green"
+          />
         </div>
+      </section>
+
+      <section className="card">
+        <h2 className="mb-1 text-sm font-semibold uppercase tracking-wide text-slate-500">Revenue Collection Trend</h2>
+        <p className="mb-2 text-xs text-slate-400">Taxes collected by period (ZMW)</p>
+        <RevenueTrendChart />
       </section>
 
       <section>
@@ -58,10 +76,17 @@ export default function ConsultantPage() {
         <DataTable columns={columns} data={REVENUE_PERFORMANCE} rowKey={(r) => r.period} />
       </section>
 
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <AIComplianceEngine />
+        <PaymentGateway />
+      </div>
+
       <section>
         <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Management KPI Dashboard</h2>
         <ManagementKpiGrid kpis={MANAGEMENT_KPIS} />
       </section>
+
+      <SystemIntegrations />
 
       <p className="text-xs text-slate-400">
         Latest period revenue collected: {zmw(REVENUE_PERFORMANCE[REVENUE_PERFORMANCE.length - 1].taxesCollected)}
