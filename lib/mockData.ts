@@ -1,3 +1,108 @@
+export interface NotificationItem {
+  id: string;
+  title: string;
+  description: string;
+  time: string;
+  unread: boolean;
+  tone: "info" | "warning" | "success";
+}
+
+export const NOTIFICATIONS: NotificationItem[] = [
+  {
+    id: "n1",
+    title: "VAT return due in 7 days",
+    description: "Your Apr 2025 VAT return is due for submission.",
+    time: "10:15 AM",
+    unread: true,
+    tone: "warning",
+  },
+  {
+    id: "n2",
+    title: "Refund approved",
+    description: "Your refund request has moved to Approved status.",
+    time: "09:35 AM",
+    unread: true,
+    tone: "success",
+  },
+  {
+    id: "n3",
+    title: "Legislative update",
+    description: "The Finance Act 2025 has been published — review changes.",
+    time: "Yesterday",
+    unread: false,
+    tone: "info",
+  },
+  {
+    id: "n4",
+    title: "Payment received",
+    description: "Your recent payment was processed successfully.",
+    time: "2 days ago",
+    unread: false,
+    tone: "success",
+  },
+];
+
+export interface MessageThread {
+  id: string;
+  from: string;
+  subject: string;
+  preview: string;
+  time: string;
+  unread: boolean;
+}
+
+export const MESSAGE_THREADS: MessageThread[] = [
+  {
+    id: "m1",
+    from: "ZRA Compliance Desk",
+    subject: "Tax Clearance Certificate ready",
+    preview: "Your tax clearance certificate has been generated and is available for download.",
+    time: "10:42 AM",
+    unread: true,
+  },
+  {
+    id: "m2",
+    from: "ZRA Support",
+    subject: "Query on Q2 return",
+    preview: "We noticed a discrepancy in your input VAT figures — please review.",
+    time: "Yesterday",
+    unread: true,
+  },
+  {
+    id: "m3",
+    from: "ZRA Notifications",
+    subject: "Filing deadline reminder",
+    preview: "Your next return is due in 7 days. File early to avoid penalties.",
+    time: "3 days ago",
+    unread: false,
+  },
+  {
+    id: "m4",
+    from: "ZRA Refunds Desk",
+    subject: "Refund status update",
+    preview: "Your refund request is now Under Review. Expect a decision within 5 business days.",
+    time: "1 week ago",
+    unread: false,
+  },
+];
+
+export interface DocumentItem {
+  id: string;
+  name: string;
+  category: string;
+  uploadedOn: string;
+  size: string;
+  status: "Verified" | "Pending" | "Rejected";
+}
+
+export const DOCUMENTS: DocumentItem[] = [
+  { id: "d1", name: "NRC_Copy.pdf", category: "Identification", uploadedOn: "12 Jan 2025", size: "820 KB", status: "Verified" },
+  { id: "d2", name: "TPIN_Certificate.pdf", category: "Tax Registration", uploadedOn: "12 Jan 2025", size: "410 KB", status: "Verified" },
+  { id: "d3", name: "Proof_of_Address.pdf", category: "Address", uploadedOn: "12 Jan 2025", size: "1.1 MB", status: "Verified" },
+  { id: "d4", name: "2025_Q2_Financials.xlsx", category: "Financials", uploadedOn: "02 Jul 2025", size: "2.4 MB", status: "Pending" },
+  { id: "d5", name: "Tax_Clearance_2024.pdf", category: "Clearance", uploadedOn: "18 Feb 2025", size: "540 KB", status: "Verified" },
+];
+
 export const PROVINCES = [
   "Central",
   "Copperbelt",

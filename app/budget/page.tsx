@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Landmark, ShieldCheck, TrendingUp } from "lucide-react";
 import { StatCard } from "@/components/ui/StatCard";
 import { RevenueFlowSankey } from "@/components/budget/RevenueFlowSankey";
 import { SectorAllocationChart } from "@/components/budget/SectorAllocationChart";
@@ -7,13 +8,24 @@ import { BUDGET_SECTORS, MANAGEMENT_KPIS, NATIONAL_BUDGET } from "@/lib/mockData
 export default function BudgetPage() {
   return (
     <div className="min-h-screen bg-slate-50">
-      <header className="border-b border-slate-200 bg-zra-green-dark text-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-emerald-100">
-              Zambia Revenue Authority
-            </p>
-            <h1 className="text-xl font-bold sm:text-2xl">Sample National Budget — FY {NATIONAL_BUDGET.fiscalYear}</h1>
+      <div className="flex h-1.5">
+        <div className="flex-1 bg-zra-green" />
+        <div className="flex-1 bg-black" />
+        <div className="flex-1 bg-zra-red" />
+        <div className="flex-1 bg-zra-gold" />
+      </div>
+      <header className="bg-gradient-to-br from-zra-green-dark via-zra-green to-zra-green-light text-white">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-6">
+          <div className="flex items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
+              <Landmark className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-emerald-100">
+                Zambia Revenue Authority
+              </p>
+              <h1 className="text-xl font-bold sm:text-2xl">Sample National Budget — FY {NATIONAL_BUDGET.fiscalYear}</h1>
+            </div>
           </div>
           <Link href="/login" className="rounded-md bg-white/10 px-3 py-1.5 text-xs font-semibold hover:bg-white/20">
             Portal Login
@@ -77,8 +89,14 @@ export default function BudgetPage() {
             label="Revenue Target Achievement"
             value={`${MANAGEMENT_KPIS.revenueTargetAchievement}%`}
             deltaTone="positive"
+            icon={<TrendingUp className="h-4 w-4" />}
           />
-          <StatCard label="Tax Compliance Rate" value={`${MANAGEMENT_KPIS.taxComplianceRate}%`} deltaTone="positive" />
+          <StatCard
+            label="Tax Compliance Rate"
+            value={`${MANAGEMENT_KPIS.taxComplianceRate}%`}
+            deltaTone="positive"
+            icon={<ShieldCheck className="h-4 w-4" />}
+          />
         </section>
       </main>
     </div>

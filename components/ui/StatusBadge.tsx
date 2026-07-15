@@ -1,6 +1,13 @@
 import clsx from "clsx";
 
-type Status = "Compliant" | "Pending" | "Pending Review" | "Outstanding" | "Outstanding Taxes";
+type Status =
+  | "Compliant"
+  | "Pending"
+  | "Pending Review"
+  | "Outstanding"
+  | "Outstanding Taxes"
+  | "Verified"
+  | "Rejected";
 
 const STYLES: Record<Status, string> = {
   Compliant: "bg-emerald-100 text-emerald-800 border-emerald-200",
@@ -8,6 +15,8 @@ const STYLES: Record<Status, string> = {
   Pending: "bg-amber-100 text-amber-800 border-amber-200",
   Outstanding: "bg-red-100 text-red-800 border-red-200",
   "Outstanding Taxes": "bg-red-100 text-red-800 border-red-200",
+  Verified: "bg-emerald-100 text-emerald-800 border-emerald-200",
+  Rejected: "bg-red-100 text-red-800 border-red-200",
 };
 
 const DOT: Record<Status, string> = {
@@ -16,6 +25,8 @@ const DOT: Record<Status, string> = {
   Pending: "bg-amber-500",
   Outstanding: "bg-red-500",
   "Outstanding Taxes": "bg-red-500",
+  Verified: "bg-emerald-500",
+  Rejected: "bg-red-500",
 };
 
 export function StatusBadge({ status, className }: { status: Status; className?: string }) {

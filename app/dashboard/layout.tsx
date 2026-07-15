@@ -2,17 +2,16 @@
 
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import Link from "next/link";
+import { Search } from "lucide-react";
 import { dashboardPathForRole, useAuth } from "@/lib/auth";
-
-const PORTAL_LABEL: Record<string, string> = {
-  taxpayer: "Taxpayer Portal",
-  tax_practitioner: "Tax Practitioner Portal",
-  zra_consultant: "ZRA Consultant Portal",
-};
+import { Sidebar } from "@/components/dashboard/Sidebar";
+import { MobileNav } from "@/components/dashboard/MobileNav";
+import { NotificationsBell } from "@/components/dashboard/NotificationsBell";
+import { UserMenu } from "@/components/dashboard/UserMenu";
+import { AIAssistantWidget } from "@/components/dashboard/AIAssistantWidget";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const { user, loading, logout } = useAuth();
+  const { user, loading } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -36,49 +35,27 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     );
   }
 
-  const fullName = `${user.profile.firstName} ${user.profile.surname}`;
-
   return (
-    <div className="min-h-screen bg-slate-100">
-      <header className="border-b border-slate-200 bg-zra-green-dark text-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-lg font-bold">
-              🇿🇲
-            </div>
-            <div>
-              <p className="text-sm font-semibold leading-tight">Zambia Revenue Authority</p>
-              <p className="text-xs text-emerald-100">{PORTAL_LABEL[user.profile.role]}</p>
-            </div>
+    <div className="flex min-h-screen bg-slate-100">
+      <Sidebar role={user.profile.role} />
+      <div className="flex min-w-0 flex-1 flex-col">
+        <header className="flex items-center justify-between gap-4 border-b border-slate-200 bg-white px-4 py-3 sm:px-6">
+          <div className="relative hidden max-w-sm flex-1 sm:block">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <input
+              placeholder="Search taxpayers, TPIN, returns..."
+              className="w-full rounded-lg border border-slate-200 bg-slate-50 py-2 pl-9 pr-3 text-sm focus:border-zra-green focus:outline-none focus:ring-1 focus:ring-zra-green"
+            />
           </div>
-          <div className="flex items-center gap-4">
-            <Link href="/budget" className="hidden text-xs font-medium text-emerald-100 hover:text-white sm:block">
-              National Budget
-            </Link>
-            <div className="text-right">
-              <p className="text-sm font-semibold leading-tight">{fullName}</p>
-              <p className="text-xs text-emerald-100">
-                {"tpin" in user.profile
-                  ? `TPIN ${user.profile.tpin}`
-                  : "consultantNumber" in user.profile
-                    ? user.profile.consultantNumber
-                    : ""}
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                logout();
-                router.push("/login");
-              }}
-              className="rounded-md bg-white/10 px-3 py-1.5 text-xs font-semibold hover:bg-white/20"
-            >
-              Log Out
-            </button>
+          <div className="flex flex-1 items-center justify-end gap-3 sm:flex-none">
+            <NotificationsBell />
+            <UserMenu />
           </div>
-        </div>
-      </header>
-      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">{children}</main>
+        </header>
+        <MobileNav role={user.profile.role} />
+        <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6">{children}</main>
+      </div>
+      <AIAssistantWidget />
     </div>
   );
 }

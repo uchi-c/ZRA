@@ -12,6 +12,7 @@ import { RefundStepper } from "@/components/taxpayer/RefundStepper";
 import { DEFAULT_EXPENSE, DEFAULT_INCOME, sumValues } from "@/lib/tax";
 import { zmw } from "@/lib/mockData";
 import type { TaxpayerProfile } from "@/lib/types";
+import { AlertTriangle, Receipt, TrendingDown, TrendingUp } from "lucide-react";
 
 const TAX_PERIODS = ["2025 Q1", "2025 Q2", "2025 Q3", "2025 Q4", "01 Jan 2025 - 31 Dec 2025"];
 
@@ -94,13 +95,13 @@ export function TaxpayerDashboard() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="card">
+      <div className="card bg-gradient-to-r from-zra-green-dark to-zra-green text-white">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <div>
-            <h1 className="text-lg font-bold text-slate-900">
-              {profile.firstName} {profile.surname}
+            <h1 className="text-lg font-bold">
+              Welcome back, {profile.firstName} {profile.surname}
             </h1>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-emerald-100">
               TPIN {profile.tpin} · {profile.businessName ?? "Individual Taxpayer"} · {profile.taxpayerType}
             </p>
           </div>
@@ -108,7 +109,7 @@ export function TaxpayerDashboard() {
             <select
               value={taxPeriod}
               onChange={(e) => setTaxPeriod(e.target.value)}
-              className="field-input w-auto"
+              className="rounded-md border border-white/20 bg-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-white [&>option]:text-slate-900"
             >
               {TAX_PERIODS.map((p) => (
                 <option key={p} value={p}>
@@ -122,14 +123,16 @@ export function TaxpayerDashboard() {
       </div>
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <StatCard label="Total Income" value={zmw(totalIncome)} />
-        <StatCard label="Total Expenses" value={zmw(totalExpenses)} />
-        <StatCard label="Tax Payable" value={zmw(incomeTaxPayable)} />
+        <StatCard label="Total Income" value={zmw(totalIncome)} icon={<TrendingUp className="h-4 w-4" />} tone="green" />
+        <StatCard label="Total Expenses" value={zmw(totalExpenses)} icon={<TrendingDown className="h-4 w-4" />} tone="amber" />
+        <StatCard label="Tax Payable" value={zmw(incomeTaxPayable)} icon={<Receipt className="h-4 w-4" />} tone="blue" />
         <StatCard
           label="Outstanding Balance"
           value={zmw(outstandingBalance)}
           deltaTone={outstandingBalance > 0 ? "negative" : "positive"}
           delta={outstandingBalance > 0 ? "Payment required" : "All clear"}
+          icon={<AlertTriangle className="h-4 w-4" />}
+          tone={outstandingBalance > 0 ? "red" : "green"}
         />
       </div>
 
