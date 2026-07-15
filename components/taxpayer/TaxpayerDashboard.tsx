@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/auth";
 import { StatCard } from "@/components/ui/StatCard";
 import { StatusBadge } from "@/components/ui/StatusBadge";
@@ -16,9 +17,14 @@ import { AlertTriangle, Receipt, TrendingDown, TrendingUp } from "lucide-react";
 
 const TAX_PERIODS = ["2025 Q1", "2025 Q2", "2025 Q3", "2025 Q4", "01 Jan 2025 - 31 Dec 2025"];
 
+const TAB_IDS = ["income", "expense", "computation", "paye", "vat", "wht", "refunds", "liability"];
+
 export function TaxpayerDashboard() {
   const { user } = useAuth();
   const profile = user!.profile as TaxpayerProfile;
+  const searchParams = useSearchParams();
+  const requestedTab = searchParams.get("tab");
+  const initialTab = requestedTab && TAB_IDS.includes(requestedTab) ? requestedTab : "income";
 
   const [taxPeriod, setTaxPeriod] = useState(TAX_PERIODS[1]);
   const [income, setIncome] = useState<Record<string, number>>(DEFAULT_INCOME);
@@ -137,6 +143,7 @@ export function TaxpayerDashboard() {
       </div>
 
       <Tabs
+        defaultTabId={initialTab}
         tabs={[
           {
             id: "income",

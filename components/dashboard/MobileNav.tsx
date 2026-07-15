@@ -1,19 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import clsx from "clsx";
 import { navItemsForRole } from "@/lib/navConfig";
 import type { Role } from "@/lib/types";
 
 export function MobileNav({ role }: { role: Role }) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentFullPath = searchParams.toString() ? `${pathname}?${searchParams.toString()}` : pathname;
   const items = navItemsForRole(role);
 
   return (
     <nav className="flex gap-1 overflow-x-auto border-b border-slate-200 bg-white px-4 py-2 lg:hidden">
       {items.map((item) => {
-        const active = pathname === item.href;
+        const active = currentFullPath === item.href;
         const Icon = item.icon;
         return (
           <Link

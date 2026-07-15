@@ -5,6 +5,9 @@ import { StatCard } from "@/components/ui/StatCard";
 import { DataTable, type DataTableColumn } from "@/components/ui/DataTable";
 import { ManagementKpiGrid } from "@/components/dashboard/ManagementKpiGrid";
 import { RevenueTrendChart } from "@/components/consultant/RevenueTrendChart";
+import { AIComplianceEngine } from "@/components/consultant/AIComplianceEngine";
+import { PaymentGateway } from "@/components/consultant/PaymentGateway";
+import { SystemIntegrations } from "@/components/consultant/SystemIntegrations";
 import {
   CONSULTANT_SUMMARY,
   MANAGEMENT_KPIS,
@@ -73,10 +76,17 @@ export default function ConsultantPage() {
         <DataTable columns={columns} data={REVENUE_PERFORMANCE} rowKey={(r) => r.period} />
       </section>
 
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <AIComplianceEngine />
+        <PaymentGateway />
+      </div>
+
       <section>
         <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Management KPI Dashboard</h2>
         <ManagementKpiGrid kpis={MANAGEMENT_KPIS} />
       </section>
+
+      <SystemIntegrations />
 
       <p className="text-xs text-slate-400">
         Latest period revenue collected: {zmw(REVENUE_PERFORMANCE[REVENUE_PERFORMANCE.length - 1].taxesCollected)}

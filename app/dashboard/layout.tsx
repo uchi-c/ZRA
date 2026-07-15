@@ -9,6 +9,7 @@ import { MobileNav } from "@/components/dashboard/MobileNav";
 import { NotificationsBell } from "@/components/dashboard/NotificationsBell";
 import { UserMenu } from "@/components/dashboard/UserMenu";
 import { AIAssistantWidget } from "@/components/dashboard/AIAssistantWidget";
+import { WorkflowStepper } from "@/components/dashboard/WorkflowStepper";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -53,7 +54,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </div>
         </header>
         <MobileNav role={user.profile.role} />
-        <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6">{children}</main>
+        <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 px-4 py-6 sm:px-6">
+          <WorkflowStepper role={user.profile.role} />
+          {children}
+        </main>
       </div>
       <AIAssistantWidget />
     </div>

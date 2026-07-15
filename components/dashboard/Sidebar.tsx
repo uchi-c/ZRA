@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import clsx from "clsx";
 import { LandPlot } from "lucide-react";
 import { navItemsForRole } from "@/lib/navConfig";
@@ -15,6 +15,8 @@ const PORTAL_LABEL: Record<Role, string> = {
 
 export function Sidebar({ role }: { role: Role }) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentFullPath = searchParams.toString() ? `${pathname}?${searchParams.toString()}` : pathname;
   const items = navItemsForRole(role);
 
   return (
@@ -28,21 +30,21 @@ export function Sidebar({ role }: { role: Role }) {
           <p className="text-[11px] text-emerald-200">{PORTAL_LABEL[role]}</p>
         </div>
       </div>
-      <nav className="flex-1 space-y-1 px-3 py-4">
+      <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-4">
         {items.map((item) => {
-          const active = pathname === item.href;
+          const active = currentFullPath === item.href;
           const Icon = item.icon;
           return (
             <Link
               key={item.href}
               href={item.href}
               className={clsx(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition",
+                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition",
                 active ? "bg-white/15 text-white" : "text-emerald-100/80 hover:bg-white/10 hover:text-white"
               )}
             >
-              <Icon className="h-4 w-4" />
-              {item.label}
+              <Icon className="h-4 w-4 shrink-0" />
+              <span className="truncate">{item.label}</span>
             </Link>
           );
         })}
