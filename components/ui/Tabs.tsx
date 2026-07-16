@@ -24,7 +24,7 @@ export function Tabs({ tabs, defaultTabId }: { tabs: TabItem[]; defaultTabId?: s
             className={clsx(
               "flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium transition",
               active === tab.id
-                ? "bg-white text-zra-green shadow-sm"
+                ? "bg-white text-zra-navy shadow-sm"
                 : "text-slate-600 hover:text-slate-900"
             )}
           >

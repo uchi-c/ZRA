@@ -10,30 +10,30 @@ type Status =
   | "Rejected";
 
 const STYLES: Record<Status, string> = {
-  Compliant: "bg-emerald-100 text-emerald-800 border-emerald-200",
-  "Pending Review": "bg-amber-100 text-amber-800 border-amber-200",
-  Pending: "bg-amber-100 text-amber-800 border-amber-200",
-  Outstanding: "bg-red-100 text-red-800 border-red-200",
-  "Outstanding Taxes": "bg-red-100 text-red-800 border-red-200",
-  Verified: "bg-emerald-100 text-emerald-800 border-emerald-200",
-  Rejected: "bg-red-100 text-red-800 border-red-200",
+  Compliant: "bg-status-green/15 text-status-green",
+  "Pending Review": "bg-status-amber/15 text-status-amber",
+  Pending: "bg-status-amber/15 text-status-amber",
+  Outstanding: "bg-status-red/15 text-status-red",
+  "Outstanding Taxes": "bg-status-red/15 text-status-red",
+  Verified: "bg-status-green/15 text-status-green",
+  Rejected: "bg-status-red/15 text-status-red",
 };
 
 const DOT: Record<Status, string> = {
-  Compliant: "bg-emerald-500",
-  "Pending Review": "bg-amber-500",
-  Pending: "bg-amber-500",
-  Outstanding: "bg-red-500",
-  "Outstanding Taxes": "bg-red-500",
-  Verified: "bg-emerald-500",
-  Rejected: "bg-red-500",
+  Compliant: "bg-status-green",
+  "Pending Review": "bg-status-amber",
+  Pending: "bg-status-amber",
+  Outstanding: "bg-status-red",
+  "Outstanding Taxes": "bg-status-red",
+  Verified: "bg-status-green",
+  Rejected: "bg-status-red",
 };
 
 export function StatusBadge({ status, className }: { status: Status; className?: string }) {
   return (
     <span
       className={clsx(
-        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium",
+        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold",
         STYLES[status],
         className
       )}

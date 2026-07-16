@@ -23,7 +23,7 @@ export function MobileNav({ role }: { role: Role }) {
             href={item.href}
             className={clsx(
               "flex shrink-0 items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition",
-              active ? "bg-emerald-50 text-zra-green" : "text-slate-500 hover:bg-slate-50"
+              active ? "bg-zra-gold-light/40 text-zra-navy-dark" : "text-slate-500 hover:bg-slate-50"
             )}
           >
             <Icon className="h-3.5 w-3.5" />

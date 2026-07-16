@@ -27,22 +27,22 @@ export function TaxClearancePage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="card bg-gradient-to-r from-zra-green-dark to-zra-green text-white">
+      <div className="card bg-gradient-to-r from-zra-navy-dark to-zra-navy text-white">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <div className="flex items-center gap-3">
             <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/15">
               <FileCheck2 className="h-5 w-5" />
             </span>
             <div>
-              <p className="text-xs uppercase tracking-wide text-emerald-100">Current Status</p>
+              <p className="text-xs uppercase tracking-wide text-white/80">Current Status</p>
               <h1 className="text-lg font-bold">Tax Clearance {current.status}</h1>
-              <p className="text-sm text-emerald-100">Certificate {current.id} · expires {current.expiresOn}</p>
+              <p className="text-sm text-white/80">Certificate {current.id} · expires {current.expiresOn}</p>
             </div>
           </div>
           <button
             type="button"
             onClick={() => setToast("Tax clearance certificate generated and sent to your email.")}
-            className="rounded-md bg-white px-4 py-2 text-sm font-semibold text-zra-green hover:bg-emerald-50"
+            className="rounded-md bg-white px-4 py-2 text-sm font-semibold text-zra-navy hover:bg-zra-navy/5"
           >
             Generate Tax Clearance
           </button>

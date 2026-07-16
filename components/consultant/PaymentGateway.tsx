@@ -15,7 +15,7 @@ export function PaymentGateway() {
   return (
     <div className="card">
       <div className="mb-4 flex items-center gap-2">
-        <Banknote className="h-4 w-4 text-zra-green" />
+        <Banknote className="h-4 w-4 text-zra-navy" />
         <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Digital Payment Gateway</h2>
       </div>
       <p className="mb-3 text-xs text-slate-400">Integrated With</p>

@@ -13,8 +13,8 @@ export function PerformancePage() {
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
         <StatCard label="Clients Managed" value={PRACTITIONER_PERFORMANCE.clientsManaged.toString()} icon={<Users className="h-4 w-4" />} tone="blue" />
-        <StatCard label="Returns Filed" value={PRACTITIONER_PERFORMANCE.returnsFiled.toString()} icon={<FileCheck className="h-4 w-4" />} tone="green" />
-        <StatCard label="Revenue Generated" value={zmw(PRACTITIONER_PERFORMANCE.revenueGenerated)} icon={<Wallet className="h-4 w-4" />} tone="green" />
+        <StatCard label="Returns Filed" value={PRACTITIONER_PERFORMANCE.returnsFiled.toString()} icon={<FileCheck className="h-4 w-4" />} tone="navy" />
+        <StatCard label="Revenue Generated" value={zmw(PRACTITIONER_PERFORMANCE.revenueGenerated)} icon={<Wallet className="h-4 w-4" />} tone="gold" />
         <StatCard
           label="Compliance Rate"
           value={`${PRACTITIONER_PERFORMANCE.complianceRate}%`}

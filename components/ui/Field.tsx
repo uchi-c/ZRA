@@ -1,6 +1,7 @@
 "use client";
 
 import { useId } from "react";
+import clsx from "clsx";
 
 interface TextFieldProps {
   label: string;
@@ -69,7 +70,7 @@ export function SelectField({ label, value, onChange, options, required, placeho
   );
 }
 
-interface RadioGroupProps {
+interface SegmentedGroupProps {
   label: string;
   value: string;
   onChange: (value: string) => void;
@@ -78,27 +79,32 @@ interface RadioGroupProps {
   className?: string;
 }
 
-export function RadioGroup({ label, value, onChange, options, required, className }: RadioGroupProps) {
-  const name = useId();
+export function SegmentedGroup({ label, value, onChange, options, required, className }: SegmentedGroupProps) {
   return (
     <div className={className}>
       <span className="field-label">
         {label} {required && <span className="text-zra-red">*</span>}
       </span>
-      <div className="flex flex-wrap gap-x-5 gap-y-2">
-        {options.map((opt) => (
-          <label key={opt.value} className="flex items-center gap-2 text-sm text-slate-700">
-            <input
-              type="radio"
-              name={name}
-              value={opt.value}
-              checked={value === opt.value}
-              onChange={(e) => onChange(e.target.value)}
-              className="h-4 w-4 border-slate-300 text-zra-green focus:ring-zra-green"
-            />
-            {opt.label}
-          </label>
-        ))}
+      <div className="flex flex-wrap gap-2">
+        {options.map((opt) => {
+          const selected = value === opt.value;
+          return (
+            <button
+              key={opt.value}
+              type="button"
+              onClick={() => onChange(opt.value)}
+              aria-pressed={selected}
+              className={clsx(
+                "rounded-full border px-3.5 py-1.5 text-sm font-medium transition",
+                selected
+                  ? "border-zra-navy bg-zra-navy text-white"
+                  : "border-slate-300 bg-white text-zra-navy hover:border-zra-navy"
+              )}
+            >
+              {opt.label}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
@@ -120,7 +126,7 @@ export function CheckboxField({ label, checked, onChange, required, className }:
         required={required}
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className="mt-0.5 h-4 w-4 rounded border-slate-300 text-zra-green focus:ring-zra-green"
+        className="mt-0.5 h-4 w-4 rounded border-slate-300 text-zra-navy focus:ring-zra-navy"
       />
       <span>{label}</span>
     </label>

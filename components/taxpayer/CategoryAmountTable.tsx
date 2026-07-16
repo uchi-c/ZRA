@@ -39,7 +39,7 @@ export function CategoryAmountTable({
                   type="number"
                   value={value}
                   onChange={(e) => onChange(category, Number(e.target.value))}
-                  className="w-32 rounded-md border border-slate-300 px-2 py-1 text-right text-sm focus:border-zra-green focus:outline-none focus:ring-1 focus:ring-zra-green sm:w-40"
+                  className="w-32 rounded-md border border-slate-300 px-2 py-1 text-right text-sm focus:border-zra-navy focus:outline-none focus:ring-1 focus:ring-zra-navy sm:w-40"
                 />
               </td>
             </tr>

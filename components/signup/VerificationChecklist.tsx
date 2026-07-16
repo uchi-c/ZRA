@@ -36,7 +36,7 @@ export function VerificationChecklist({ steps, onComplete }: VerificationCheckli
               className={clsx(
                 "flex items-center gap-3 rounded-md border px-4 py-2.5 text-sm transition-colors",
                 done && "border-emerald-200 bg-emerald-50 text-emerald-800",
-                active && !done && "border-zra-green bg-emerald-50/40 text-slate-700",
+                active && !done && "border-zra-navy bg-emerald-50/40 text-slate-700",
                 !done && !active && "border-slate-200 bg-slate-50 text-slate-400"
               )}
             >
@@ -44,7 +44,7 @@ export function VerificationChecklist({ steps, onComplete }: VerificationCheckli
                 className={clsx(
                   "flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-bold",
                   done && "bg-emerald-500 text-white",
-                  active && !done && "animate-pulse bg-zra-green text-white",
+                  active && !done && "animate-pulse bg-zra-navy text-white",
                   !done && !active && "bg-slate-200 text-slate-400"
                 )}
               >

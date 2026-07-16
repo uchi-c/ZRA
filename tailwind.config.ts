@@ -12,11 +12,17 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         zra: {
-          green: "#0a5c36",
-          "green-dark": "#063d24",
-          "green-light": "#0e7a47",
-          gold: "#eab308",
-          red: "#c0362c",
+          navy: "#0F2A5C",
+          "navy-dark": "#0A1F42",
+          "navy-light": "#1E3E76",
+          gold: "#C9A24A",
+          "gold-light": "#E4CE96",
+          red: "#D6262A",
+        },
+        status: {
+          green: "#1C8A3C",
+          amber: "#EF7D00",
+          red: "#D6262A",
         },
       },
       boxShadow: {

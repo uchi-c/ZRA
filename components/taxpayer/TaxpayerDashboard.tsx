@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/auth";
+import { useDashboardStatusBar } from "@/lib/dashboardStatus";
 import { StatCard } from "@/components/ui/StatCard";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { Tabs } from "@/components/ui/Tabs";
@@ -13,7 +14,7 @@ import { RefundStepper } from "@/components/taxpayer/RefundStepper";
 import { DEFAULT_EXPENSE, DEFAULT_INCOME, sumValues } from "@/lib/tax";
 import { zmw } from "@/lib/mockData";
 import type { TaxpayerProfile } from "@/lib/types";
-import { AlertTriangle, Receipt, TrendingDown, TrendingUp } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Receipt, TrendingDown, TrendingUp } from "lucide-react";
 
 const TAX_PERIODS = ["2025 Q1", "2025 Q2", "2025 Q3", "2025 Q4", "01 Jan 2025 - 31 Dec 2025"];
 
@@ -76,6 +77,16 @@ export function TaxpayerDashboard() {
 
   const taxStatus = outstandingBalance > 0 ? "Outstanding Taxes" : hasRefund && refundStep < 3 ? "Pending Review" : "Compliant";
 
+  const { setStatus } = useDashboardStatusBar();
+  useEffect(() => {
+    setStatus({
+      label: `TPIN ${profile.tpin}`,
+      value: taxStatus,
+      tone: taxStatus === "Compliant" ? "green" : taxStatus === "Pending Review" ? "amber" : "red",
+    });
+    return () => setStatus(null);
+  }, [profile.tpin, taxStatus, setStatus]);
+
   function handleAction(action: string) {
     if (action === "Request Refund") {
       if (hasRefund) {
@@ -101,13 +112,13 @@ export function TaxpayerDashboard() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="card bg-gradient-to-r from-zra-green-dark to-zra-green text-white">
+      <div className="card bg-gradient-to-r from-zra-navy-dark to-zra-navy text-white">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <div>
             <h1 className="text-lg font-bold">
               Welcome back, {profile.firstName} {profile.surname}
             </h1>
-            <p className="text-sm text-emerald-100">
+            <p className="text-sm text-white/80">
               TPIN {profile.tpin} · {profile.businessName ?? "Individual Taxpayer"} · {profile.taxpayerType}
             </p>
           </div>
@@ -129,7 +140,7 @@ export function TaxpayerDashboard() {
       </div>
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <StatCard label="Total Income" value={zmw(totalIncome)} icon={<TrendingUp className="h-4 w-4" />} tone="green" />
+        <StatCard label="Total Income" value={zmw(totalIncome)} icon={<TrendingUp className="h-4 w-4" />} tone="gold" />
         <StatCard label="Total Expenses" value={zmw(totalExpenses)} icon={<TrendingDown className="h-4 w-4" />} tone="amber" />
         <StatCard label="Tax Payable" value={zmw(incomeTaxPayable)} icon={<Receipt className="h-4 w-4" />} tone="blue" />
         <StatCard
@@ -175,9 +186,11 @@ export function TaxpayerDashboard() {
             id: "computation",
             label: "Tax Computation",
             content: (
-              <div className="card">
-                <h3 className="mb-4 text-base font-semibold text-slate-900">Automatic Tax Computation</h3>
-                <div className="flex flex-col divide-y divide-slate-100 text-sm">
+              <div className="overflow-hidden rounded-xl border border-[#EDEFF3] shadow-card">
+                <div className="bg-zra-navy px-5 py-3">
+                  <h3 className="text-base font-semibold text-white">Tax Computation Summary</h3>
+                </div>
+                <div className="flex flex-col divide-y divide-slate-100 bg-white px-5 pb-2 text-sm">
                   <Row label="Total Income" value={zmw(totalIncome)} />
                   <Row label="Total Expenses" value={`− ${zmw(totalExpenses)}`} />
                   <Row label="Net Profit" value={zmw(netProfit)} bold />
@@ -242,25 +255,28 @@ export function TaxpayerDashboard() {
                   <NumberField label="NAPSA (ZMW)" value={napsa} onChange={setNapsa} />
                   <NumberField label="NHIMA (ZMW)" value={nhima} onChange={setNhima} />
                 </div>
+                <p className="text-xs italic text-slate-400">Formula: PAYE Liability = PAYE Deducted</p>
                 <div className="flex items-center justify-between rounded-md bg-slate-50 px-4 py-3">
                   <span className="text-sm font-semibold text-slate-700">PAYE Liability</span>
-                  <span className="text-base font-bold text-slate-900">{zmw(payeLiability)}</span>
+                  <span className="text-base font-bold text-zra-gold">{zmw(payeLiability)}</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {(["Filed", "Paid", "Outstanding"] as const).map((s) => (
-                    <button
-                      key={s}
-                      type="button"
-                      onClick={() => setPayeStatus(s)}
-                      className={`rounded-full border px-3 py-1 text-xs font-semibold transition ${
-                        payeStatus === s
-                          ? "border-zra-green bg-emerald-50 text-zra-green"
-                          : "border-slate-300 text-slate-500 hover:bg-slate-50"
-                      }`}
-                    >
-                      PAYE {s}
-                    </button>
-                  ))}
+                  {(["Filed", "Paid", "Outstanding"] as const).map((s) => {
+                    const selected = payeStatus === s;
+                    const selectedTone = s === "Outstanding" ? "border-status-red bg-status-red/10 text-status-red" : "border-status-green bg-status-green/10 text-status-green";
+                    return (
+                      <button
+                        key={s}
+                        type="button"
+                        onClick={() => setPayeStatus(s)}
+                        className={`rounded-full border px-3 py-1 text-xs font-semibold transition ${
+                          selected ? selectedTone : "border-slate-300 text-slate-500 hover:bg-slate-50"
+                        }`}
+                      >
+                        PAYE {s}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             ),
@@ -274,9 +290,10 @@ export function TaxpayerDashboard() {
                   <NumberField label="Output VAT (ZMW)" value={outputVat} onChange={setOutputVat} />
                   <NumberField label="Input VAT (ZMW)" value={inputVat} onChange={setInputVat} />
                 </div>
+                <p className="text-xs italic text-slate-400">Formula: Output VAT − Input VAT = VAT Payable</p>
                 <div className="flex items-center justify-between rounded-md bg-slate-50 px-4 py-3">
-                  <span className="text-sm font-semibold text-slate-700">Net VAT Payable (Output − Input)</span>
-                  <span className="text-base font-bold text-slate-900">{zmw(netVatPayable)}</span>
+                  <span className="text-sm font-semibold text-slate-700">Net VAT Payable</span>
+                  <span className="text-base font-bold text-zra-gold">{zmw(netVatPayable)}</span>
                 </div>
               </div>
             ),
@@ -290,9 +307,10 @@ export function TaxpayerDashboard() {
                   <NumberField label="WHT Deducted (ZMW)" value={whtDeducted} onChange={setWhtDeducted} />
                   <NumberField label="WHT Credits (ZMW)" value={whtCredits} onChange={setWhtCredits} />
                 </div>
+                <p className="text-xs italic text-slate-400">Formula: WHT Deducted − WHT Credits = Net Position</p>
                 <div className="flex items-center justify-between rounded-md bg-slate-50 px-4 py-3">
                   <span className="text-sm font-semibold text-slate-700">Net Position</span>
-                  <span className="text-base font-bold text-slate-900">{zmw(whtNetPosition)}</span>
+                  <span className="text-base font-bold text-zra-gold">{zmw(whtNetPosition)}</span>
                 </div>
               </div>
             ),
@@ -332,7 +350,16 @@ export function TaxpayerDashboard() {
             id: "liability",
             label: "Outstanding Liability",
             content: (
-              <div className="card flex flex-col gap-4">
+              <div
+                className={`card flex flex-col gap-4 ${
+                  outstandingBalance > 0 ? "border-l-4 border-l-status-red" : "border-l-4 border-l-status-green"
+                }`}
+              >
+                {outstandingBalance === 0 && (
+                  <div className="flex items-center gap-2 rounded-md bg-status-green/10 px-4 py-3 text-sm font-medium text-status-green">
+                    <CheckCircle2 className="h-4 w-4" /> No outstanding balance — you&apos;re fully up to date.
+                  </div>
+                )}
                 <div className="flex flex-col divide-y divide-slate-100 text-sm">
                   <Row label="Income Tax" value={zmw(incomeTaxPayable)} />
                   <Row label="PAYE" value={zmw(payeLiability)} />
@@ -367,7 +394,13 @@ export function TaxpayerDashboard() {
                   />
                   <Row label="Total Liability" value={zmw(totalLiability)} bold />
                   <Row label="Less Credits" value={`− ${zmw(totalCredits)}`} />
-                  <Row label="Outstanding Balance" value={zmw(outstandingBalance)} bold accent />
+                  <Row
+                    label="Outstanding Balance"
+                    value={zmw(outstandingBalance)}
+                    bold
+                    accent
+                    accentTone={outstandingBalance > 0 ? "red" : "green"}
+                  />
                 </div>
               </div>
             ),
@@ -382,21 +415,29 @@ export function TaxpayerDashboard() {
   );
 }
 
+const ACCENT_COLOR = {
+  gold: "text-zra-gold",
+  red: "text-status-red",
+  green: "text-status-green",
+};
+
 function Row({
   label,
   value,
   bold,
   accent,
+  accentTone = "gold",
 }: {
   label: React.ReactNode;
   value: string;
   bold?: boolean;
   accent?: boolean;
+  accentTone?: "gold" | "red" | "green";
 }) {
   return (
     <div className="flex items-center justify-between gap-4 py-2.5">
       <span className={bold ? "font-semibold text-slate-900" : "text-slate-600"}>{label}</span>
-      <span className={accent ? "text-lg font-bold text-zra-green" : bold ? "font-semibold text-slate-900" : "text-slate-700"}>
+      <span className={accent ? `text-lg font-bold ${ACCENT_COLOR[accentTone]}` : bold ? "font-semibold text-slate-900" : "text-slate-700"}>
         {value}
       </span>
     </div>

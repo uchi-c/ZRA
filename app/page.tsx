@@ -28,22 +28,22 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="flex h-1.5">
-        <div className="flex-1 bg-zra-green" />
+        <div className="flex-1 bg-zra-navy" />
         <div className="flex-1 bg-black" />
         <div className="flex-1 bg-zra-red" />
         <div className="flex-1 bg-zra-gold" />
       </div>
 
-      <div className="bg-gradient-to-br from-zra-green-dark via-zra-green to-zra-green-light px-4 py-20 text-white">
+      <div className="bg-gradient-to-br from-zra-navy-dark via-zra-navy to-zra-navy-light px-4 py-20 text-white">
         <div className="mx-auto max-w-3xl text-center">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-2xl">
             🇿🇲
           </div>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-100">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
             Zambia Revenue Authority
           </p>
           <h1 className="mt-3 text-3xl font-bold sm:text-5xl">Integrated Digital Tax Return System</h1>
-          <p className="mx-auto mt-4 max-w-xl text-sm text-emerald-100 sm:text-base">
+          <p className="mx-auto mt-4 max-w-xl text-sm text-white/80 sm:text-base">
             My Tax. Your Tax. Our Destiny. A connected, digital-first tax administration platform linking
             Taxpayers, Tax Practitioners, and ZRA Tax Consultants.
           </p>
@@ -58,14 +58,14 @@ export default function Home() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="card group transition hover:-translate-y-1 hover:border-zra-green hover:shadow-lg"
+                className="card group transition hover:-translate-y-1 hover:border-zra-navy hover:shadow-lg"
               >
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-zra-green transition group-hover:bg-zra-green group-hover:text-white">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-zra-navy/5 text-zra-navy transition group-hover:bg-zra-navy group-hover:text-white">
                   <Icon className="h-5 w-5" />
                 </span>
                 <h2 className="mt-4 text-base font-semibold text-slate-900">{link.title}</h2>
                 <p className="mt-1 text-sm text-slate-500">{link.description}</p>
-                <span className="mt-3 inline-block text-sm font-semibold text-zra-green">Continue →</span>
+                <span className="mt-3 inline-block text-sm font-semibold text-zra-navy">Continue →</span>
               </Link>
             );
           })}
@@ -74,7 +74,7 @@ export default function Home() {
         <div className="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-slate-200 pt-8 text-xs font-medium text-slate-500">
           {COMMITMENTS.map((c) => (
             <span key={c} className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-zra-green" />
+              <span className="h-1.5 w-1.5 rounded-full bg-zra-navy" />
               {c}
             </span>
           ))}
