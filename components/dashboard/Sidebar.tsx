@@ -20,14 +20,14 @@ export function Sidebar({ role }: { role: Role }) {
   const items = navItemsForRole(role);
 
   return (
-    <aside className="hidden w-64 shrink-0 flex-col bg-zra-green-dark text-white lg:flex">
+    <aside className="hidden w-64 shrink-0 flex-col bg-zra-navy-dark text-white lg:flex">
       <div className="flex items-center gap-2 border-b border-white/10 px-5 py-5">
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10">
           <LandPlot className="h-5 w-5" />
         </div>
         <div>
           <p className="text-sm font-bold leading-tight">ZRA</p>
-          <p className="text-[11px] text-emerald-200">{PORTAL_LABEL[role]}</p>
+          <p className="text-[11px] text-white/70">{PORTAL_LABEL[role]}</p>
         </div>
       </div>
       <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-4">
@@ -39,8 +39,10 @@ export function Sidebar({ role }: { role: Role }) {
               key={item.href}
               href={item.href}
               className={clsx(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition",
-                active ? "bg-white/15 text-white" : "text-emerald-100/80 hover:bg-white/10 hover:text-white"
+                "flex items-center gap-3 rounded-lg border-l-2 px-3 py-2 text-sm font-medium transition",
+                active
+                  ? "border-zra-gold bg-white/10 text-white"
+                  : "border-transparent text-white/70 hover:bg-white/5 hover:text-white"
               )}
             >
               <Icon className="h-4 w-4 shrink-0" />
@@ -50,7 +52,7 @@ export function Sidebar({ role }: { role: Role }) {
         })}
       </nav>
       <div className="border-t border-white/10 px-5 py-4">
-        <Link href="/budget" className="text-xs font-medium text-emerald-200 hover:text-white">
+        <Link href="/budget" className="text-xs font-medium text-white/70 hover:text-white">
           View National Budget →
         </Link>
       </div>

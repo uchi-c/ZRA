@@ -38,11 +38,11 @@ export default function PractitionerPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="card bg-gradient-to-r from-zra-green-dark to-zra-green text-white">
+      <div className="card bg-gradient-to-r from-zra-navy-dark to-zra-navy text-white">
         <h1 className="text-lg font-bold">
           Welcome back, {profile.firstName} {profile.surname}
         </h1>
-        <p className="text-sm text-emerald-100">
+        <p className="text-sm text-white/80">
           {profile.currentEmployer} · {profile.category} · {profile.professionalBody} Member No. {profile.membershipNumber}
         </p>
       </div>
@@ -51,8 +51,8 @@ export default function PractitionerPage() {
         <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Client Management</h2>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
           <StatCard label="Registered Clients" value={registeredClients.toString()} icon={<Users className="h-4 w-4" />} tone="blue" />
-          <StatCard label="Active Clients" value={activeClients.toString()} icon={<Users className="h-4 w-4" />} tone="green" />
-          <StatCard label="Returns Submitted" value={returnsSubmitted.toString()} icon={<FileCheck className="h-4 w-4" />} tone="green" />
+          <StatCard label="Active Clients" value={activeClients.toString()} icon={<Users className="h-4 w-4" />} tone="navy" />
+          <StatCard label="Returns Submitted" value={returnsSubmitted.toString()} icon={<FileCheck className="h-4 w-4" />} tone="navy" />
           <StatCard label="Returns Pending" value={returnsPending.toString()} icon={<FileCheck className="h-4 w-4" />} tone="amber" />
           <StatCard
             label="Compliance Status"
@@ -81,8 +81,8 @@ export default function PractitionerPage() {
         </h2>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
           <StatCard label="Clients Managed" value={PRACTITIONER_PERFORMANCE.clientsManaged.toString()} icon={<Users className="h-4 w-4" />} tone="blue" />
-          <StatCard label="Returns Filed" value={PRACTITIONER_PERFORMANCE.returnsFiled.toString()} icon={<FileCheck className="h-4 w-4" />} tone="green" />
-          <StatCard label="Revenue Generated" value={zmw(PRACTITIONER_PERFORMANCE.revenueGenerated)} icon={<Wallet className="h-4 w-4" />} tone="green" />
+          <StatCard label="Returns Filed" value={PRACTITIONER_PERFORMANCE.returnsFiled.toString()} icon={<FileCheck className="h-4 w-4" />} tone="navy" />
+          <StatCard label="Revenue Generated" value={zmw(PRACTITIONER_PERFORMANCE.revenueGenerated)} icon={<Wallet className="h-4 w-4" />} tone="gold" />
           <StatCard
             label="Compliance Rate"
             value={`${PRACTITIONER_PERFORMANCE.complianceRate}%`}

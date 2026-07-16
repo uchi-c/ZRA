@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import clsx from "clsx";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 
-type Tone = "green" | "blue" | "amber" | "red" | "purple" | "slate";
+type Tone = "navy" | "gold" | "green" | "blue" | "amber" | "red" | "purple" | "slate";
 
 interface StatCardProps {
   label: string;
@@ -15,15 +15,17 @@ interface StatCardProps {
 }
 
 const ICON_BG: Record<Tone, string> = {
-  green: "bg-emerald-50 text-emerald-600",
-  blue: "bg-blue-50 text-blue-600",
-  amber: "bg-amber-50 text-amber-600",
-  red: "bg-red-50 text-red-600",
-  purple: "bg-violet-50 text-violet-600",
+  navy: "bg-zra-navy/10 text-zra-navy",
+  gold: "bg-zra-gold/15 text-zra-gold",
+  green: "bg-status-green/15 text-status-green",
+  blue: "bg-blue-500/10 text-blue-600",
+  amber: "bg-status-amber/15 text-status-amber",
+  red: "bg-status-red/15 text-status-red",
+  purple: "bg-violet-500/10 text-violet-600",
   slate: "bg-slate-100 text-slate-600",
 };
 
-export function StatCard({ label, value, delta, deltaTone = "neutral", icon, tone = "green", className }: StatCardProps) {
+export function StatCard({ label, value, delta, deltaTone = "neutral", icon, tone = "navy", className }: StatCardProps) {
   return (
     <div
       className={clsx(
@@ -44,8 +46,8 @@ export function StatCard({ label, value, delta, deltaTone = "neutral", icon, ton
         <span
           className={clsx(
             "inline-flex w-fit items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium",
-            deltaTone === "positive" && "bg-emerald-50 text-emerald-700",
-            deltaTone === "negative" && "bg-red-50 text-red-700",
+            deltaTone === "positive" && "bg-status-green/15 text-status-green",
+            deltaTone === "negative" && "bg-status-red/15 text-status-red",
             deltaTone === "neutral" && "bg-slate-100 text-slate-500"
           )}
         >

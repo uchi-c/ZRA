@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #f4f6f5;
-  --foreground: #171717;
+  --background: #f7f8fa;
+  --foreground: #1b2333;
 }
 
 body {
@@ -24,15 +24,15 @@ body {
     @apply mb-1 block text-sm font-medium text-slate-700;
   }
   .field-input {
-    @apply w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-zra-green focus:outline-none focus:ring-1 focus:ring-zra-green;
+    @apply w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-zra-navy focus:outline-none focus:ring-1 focus:ring-zra-navy;
   }
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-md bg-zra-green px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-zra-green-dark disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-zra-gold px-4 py-2 text-sm font-semibold text-zra-navy-dark shadow-sm transition hover:bg-zra-gold-light disabled:cursor-not-allowed disabled:opacity-50;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-zra-navy bg-white px-4 py-2 text-sm font-semibold text-zra-navy shadow-sm transition hover:bg-zra-navy/5;
   }
   .card {
-    @apply rounded-xl border border-slate-200 bg-white p-5 shadow-card;
+    @apply rounded-xl border border-[#EDEFF3] bg-white p-5 shadow-card;
   }
 }

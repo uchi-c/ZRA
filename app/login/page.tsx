@@ -56,17 +56,17 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen bg-slate-50">
-      <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden bg-gradient-to-br from-zra-green-dark via-zra-green to-zra-green-light p-10 text-white lg:flex">
+      <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden bg-gradient-to-br from-zra-navy-dark via-zra-navy to-zra-navy-light p-10 text-white lg:flex">
         <div className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 text-lg">🇿🇲</div>
           <span className="text-sm font-bold">Zambia Revenue Authority</span>
         </div>
         <div>
-          <ShieldCheck className="h-10 w-10 text-emerald-100" />
+          <ShieldCheck className="h-10 w-10 text-white/80" />
           <h2 className="mt-4 max-w-sm text-2xl font-bold leading-snug">
             My Tax. Your Tax. Our Destiny.
           </h2>
-          <p className="mt-3 max-w-sm text-sm text-emerald-100">
+          <p className="mt-3 max-w-sm text-sm text-white/80">
             One connected platform for Taxpayers, Tax Practitioners, and ZRA Tax Consultants — secure,
             transparent, and built for a modern Zambia.
           </p>
@@ -82,7 +82,7 @@ export default function LoginPage() {
       <div className="flex w-full flex-1 items-center justify-center px-4 py-10 lg:w-1/2">
         <div className="w-full max-w-md">
           <div className="mb-8 text-center lg:text-left">
-            <p className="text-xs font-semibold uppercase tracking-widest text-zra-green lg:hidden">
+            <p className="text-xs font-semibold uppercase tracking-widest text-zra-navy lg:hidden">
               Zambia Revenue Authority
             </p>
             <h1 className="mt-1 text-2xl font-bold text-slate-900">
@@ -110,7 +110,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setForgotOpen((v) => !v)}
-                  className="text-center text-sm font-medium text-zra-green hover:underline"
+                  className="text-center text-sm font-medium text-zra-navy hover:underline"
                 >
                   Forgot password?
                 </button>
@@ -135,7 +135,7 @@ export default function LoginPage() {
 
               <p className="mt-6 text-center text-sm text-slate-500">
                 Don&apos;t have an account?{" "}
-                <Link href="/signup" className="font-semibold text-zra-green hover:underline">
+                <Link href="/signup" className="font-semibold text-zra-navy hover:underline">
                   Sign up
                 </Link>
               </p>
@@ -166,7 +166,7 @@ export default function LoginPage() {
                   setOtp("");
                   setOtpError(null);
                 }}
-                className="text-center text-sm font-medium text-zra-green hover:underline"
+                className="text-center text-sm font-medium text-zra-navy hover:underline"
               >
                 Back to login
               </button>

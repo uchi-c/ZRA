@@ -11,7 +11,7 @@ export function RefundStepper({ currentStep }: { currentStep: number }) {
             <span
               className={clsx(
                 "flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold",
-                i <= currentStep ? "bg-zra-green text-white" : "bg-slate-200 text-slate-400"
+                i <= currentStep ? "bg-zra-navy text-white" : "bg-slate-200 text-slate-400"
               )}
             >
               {i < currentStep ? "✓" : i + 1}
@@ -21,7 +21,7 @@ export function RefundStepper({ currentStep }: { currentStep: number }) {
             </span>
           </div>
           {i < STEPS.length - 1 && (
-            <div className={clsx("mb-4 h-0.5 flex-1", i < currentStep ? "bg-zra-green" : "bg-slate-200")} />
+            <div className={clsx("mb-4 h-0.5 flex-1", i < currentStep ? "bg-zra-navy" : "bg-slate-200")} />
           )}
         </li>
       ))}

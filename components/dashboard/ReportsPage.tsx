@@ -11,7 +11,7 @@ export function ReportsPage({ title, description }: { title: string; description
   return (
     <div className="flex flex-col gap-6">
       <div className="card flex items-center gap-3">
-        <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50 text-zra-green">
+        <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-zra-navy/5 text-zra-navy">
           <BarChart3 className="h-5 w-5" />
         </span>
         <div>

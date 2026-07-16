@@ -9,19 +9,19 @@ export default function BudgetPage() {
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="flex h-1.5">
-        <div className="flex-1 bg-zra-green" />
+        <div className="flex-1 bg-zra-navy" />
         <div className="flex-1 bg-black" />
         <div className="flex-1 bg-zra-red" />
         <div className="flex-1 bg-zra-gold" />
       </div>
-      <header className="bg-gradient-to-br from-zra-green-dark via-zra-green to-zra-green-light text-white">
+      <header className="bg-gradient-to-br from-zra-navy-dark via-zra-navy to-zra-navy-light text-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-6">
           <div className="flex items-center gap-3">
             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
               <Landmark className="h-5 w-5" />
             </span>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-emerald-100">
+              <p className="text-xs font-semibold uppercase tracking-widest text-white/80">
                 Zambia Revenue Authority
               </p>
               <h1 className="text-xl font-bold sm:text-2xl">Sample National Budget — FY {NATIONAL_BUDGET.fiscalYear}</h1>
@@ -38,7 +38,7 @@ export default function BudgetPage() {
           <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
             Total National Revenue Collected — FY {NATIONAL_BUDGET.fiscalYear}
           </p>
-          <p className="mt-2 text-4xl font-bold text-zra-green sm:text-5xl">
+          <p className="mt-2 text-4xl font-bold text-zra-navy sm:text-5xl">
             K{NATIONAL_BUDGET.totalRevenue.toFixed(1)} Billion
           </p>
           <div className="mx-auto mt-4 grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-3">

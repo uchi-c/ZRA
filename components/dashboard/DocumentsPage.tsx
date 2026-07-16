@@ -40,7 +40,7 @@ export function DocumentsPage() {
       <section className="card">
         <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Upload New Document</h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <FileUpload label="Choose a document" hint="PDF, JPG or PNG, up to 10MB." />
+          <FileUpload label="Choose a document" />
           <div className="flex items-end">
             <button
               type="button"

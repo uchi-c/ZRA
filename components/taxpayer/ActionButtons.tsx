@@ -39,9 +39,9 @@ export function ActionButtons({ onAction }: ActionButtonsProps) {
             key={label}
             type="button"
             onClick={() => onAction(label)}
-            className="flex flex-col items-center gap-2 rounded-lg border border-slate-200 px-2 py-3 text-center transition hover:-translate-y-0.5 hover:border-zra-green hover:bg-emerald-50 hover:shadow-sm"
+            className="flex flex-col items-center gap-2 rounded-lg border border-slate-200 px-2 py-3 text-center transition hover:-translate-y-0.5 hover:border-zra-navy hover:bg-zra-navy/5 hover:shadow-sm"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-zra-green">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-zra-navy/5 text-zra-navy">
               <Icon className="h-4 w-4" />
             </span>
             <span className="text-[11px] font-medium leading-tight text-slate-600">{label}</span>

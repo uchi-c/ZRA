@@ -8,9 +8,11 @@ import { RevenueTrendChart } from "@/components/consultant/RevenueTrendChart";
 import { AIComplianceEngine } from "@/components/consultant/AIComplianceEngine";
 import { PaymentGateway } from "@/components/consultant/PaymentGateway";
 import { SystemIntegrations } from "@/components/consultant/SystemIntegrations";
+import { useState } from "react";
 import {
   CONSULTANT_SUMMARY,
   MANAGEMENT_KPIS,
+  PROVINCES,
   REVENUE_PERFORMANCE,
   zmw,
   zmwCompact,
@@ -32,16 +34,33 @@ const columns: DataTableColumn<RevenueMonthRow>[] = [
 export default function ConsultantPage() {
   const { user } = useAuth();
   const profile = user!.profile as ConsultantProfile;
+  const [region, setRegion] = useState(CONSULTANT_SUMMARY.region);
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="card bg-gradient-to-r from-zra-green-dark to-zra-green text-white">
-        <h1 className="text-lg font-bold">
-          Welcome back, {profile.firstName} {profile.surname}
-        </h1>
-        <p className="text-sm text-emerald-100">
-          Consultant No. {profile.consultantNumber} · {profile.region} Region
-        </p>
+      <div className="card flex flex-col justify-between gap-4 bg-gradient-to-r from-zra-navy-dark to-zra-navy text-white sm:flex-row sm:items-center">
+        <div>
+          <h1 className="text-lg font-bold">
+            Welcome back, {profile.firstName} {profile.surname}
+          </h1>
+          <p className="text-sm text-white/80">
+            Consultant No. {profile.consultantNumber} · {region} Region
+          </p>
+        </div>
+        <label className="flex items-center gap-2 text-xs font-medium text-white/80">
+          Region
+          <select
+            value={region}
+            onChange={(e) => setRegion(e.target.value)}
+            className="rounded-md border border-white/20 bg-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:ring-1 focus:ring-white [&>option]:text-slate-900"
+          >
+            {PROVINCES.map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
 
       <section>
@@ -50,8 +69,8 @@ export default function ConsultantPage() {
           <StatCard label="Consultant Number" value={CONSULTANT_SUMMARY.consultantNumber} icon={<Award className="h-4 w-4" />} tone="purple" />
           <StatCard label="Region" value={CONSULTANT_SUMMARY.region} icon={<MapPin className="h-4 w-4" />} tone="blue" />
           <StatCard label="Assigned Practitioners" value={CONSULTANT_SUMMARY.assignedPractitioners.toString()} icon={<Users className="h-4 w-4" />} tone="blue" />
-          <StatCard label="Assigned Taxpayers" value={CONSULTANT_SUMMARY.assignedTaxpayers.toLocaleString()} icon={<Users className="h-4 w-4" />} tone="green" />
-          <StatCard label="Revenue Collection" value={zmwCompact(CONSULTANT_SUMMARY.revenueCollection)} icon={<Wallet className="h-4 w-4" />} tone="green" />
+          <StatCard label="Assigned Taxpayers" value={CONSULTANT_SUMMARY.assignedTaxpayers.toLocaleString()} icon={<Users className="h-4 w-4" />} tone="navy" />
+          <StatCard label="Revenue Collection" value={zmwCompact(CONSULTANT_SUMMARY.revenueCollection)} icon={<Wallet className="h-4 w-4" />} tone="gold" />
           <StatCard
             label="Compliance Rate"
             value={`${CONSULTANT_SUMMARY.complianceRate}%`}

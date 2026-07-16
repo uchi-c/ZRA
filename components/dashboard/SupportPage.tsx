@@ -10,13 +10,13 @@ export function SupportPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="card flex items-center gap-3 bg-gradient-to-r from-zra-green-dark to-zra-green text-white">
+      <div className="card flex items-center gap-3 bg-gradient-to-r from-zra-navy-dark to-zra-navy text-white">
         <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15">
           <LifeBuoy className="h-5 w-5" />
         </span>
         <div>
           <h1 className="text-lg font-bold">Support Centre</h1>
-          <p className="text-sm text-emerald-100">Get help with filing, payments, and compliance.</p>
+          <p className="text-sm text-white/80">Get help with filing, payments, and compliance.</p>
         </div>
       </div>
 
@@ -31,7 +31,7 @@ export function SupportPage() {
           </div>
         </div>
         <div className="card flex items-center gap-3">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-zra-green">
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-zra-navy/5 text-zra-navy">
             <Mail className="h-4 w-4" />
           </span>
           <div>

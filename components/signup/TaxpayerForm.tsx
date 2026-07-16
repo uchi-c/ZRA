@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { StepIndicator } from "@/components/signup/StepIndicator";
 import { FileUpload } from "@/components/ui/FileUpload";
-import { TextField, SelectField, RadioGroup, CheckboxField } from "@/components/ui/Field";
+import { PasswordStrengthMeter } from "@/components/ui/PasswordStrengthMeter";
+import { TextField, SelectField, SegmentedGroup, CheckboxField } from "@/components/ui/Field";
 import { PROVINCES } from "@/lib/mockData";
 import type { TaxpayerProfile } from "@/lib/types";
 
@@ -138,7 +139,16 @@ export function TaxpayerForm({ onSubmit, submitting, error }: TaxpayerFormProps)
             <TextField label="Middle Name" value={middleName} onChange={setMiddleName} />
             <TextField label="Surname" value={surname} onChange={setSurname} required />
             <TextField label="Date of Birth" type="date" value={dateOfBirth} onChange={setDateOfBirth} required />
-            <SelectField label="Gender" value={gender} onChange={setGender} options={["Male", "Female"]} required />
+            <SegmentedGroup
+              label="Gender"
+              value={gender}
+              onChange={setGender}
+              options={[
+                { value: "Male", label: "Male" },
+                { value: "Female", label: "Female" },
+              ]}
+              required
+            />
             <TextField label="Mobile Number" type="tel" value={mobileNumber} onChange={setMobileNumber} required placeholder="0977000000" />
             <TextField label="Email Address" type="email" value={email} onChange={setEmail} required />
             <TextField label="Physical Address" value={physicalAddress} onChange={setPhysicalAddress} required className="sm:col-span-2" />
@@ -160,7 +170,7 @@ export function TaxpayerForm({ onSubmit, submitting, error }: TaxpayerFormProps)
               onChange={setProjectedAnnualTurnover}
               required
             />
-            <RadioGroup
+            <SegmentedGroup
               label="Taxpayer Type"
               value={taxpayerType}
               onChange={(v) => setTaxpayerType(v as TaxpayerProfile["taxpayerType"])}
@@ -188,8 +198,18 @@ export function TaxpayerForm({ onSubmit, submitting, error }: TaxpayerFormProps)
           <h3 className="mb-4 text-base font-semibold text-slate-900">Login Credentials</h3>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <TextField label="Username" value={username} onChange={setUsername} required />
-            <TextField label="Password" type="password" value={password} onChange={setPassword} required />
-            <TextField label="Confirm Password" type="password" value={confirmPassword} onChange={setConfirmPassword} required />
+            <div>
+              <TextField label="Password" type="password" value={password} onChange={setPassword} required />
+              <PasswordStrengthMeter password={password} />
+            </div>
+            <div>
+              <TextField label="Confirm Password" type="password" value={confirmPassword} onChange={setConfirmPassword} required />
+              {confirmPassword && (
+                <p className={`mt-1.5 text-xs ${confirmPassword === password ? "text-status-green" : "text-status-red"}`}>
+                  {confirmPassword === password ? "Passwords match" : "Passwords do not match"}
+                </p>
+              )}
+            </div>
           </div>
         </div>
       )}

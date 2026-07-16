@@ -23,7 +23,7 @@ export function UserMenu() {
         aria-label="User menu"
         className="flex items-center gap-2 rounded-full py-1 pl-1 pr-2 hover:bg-slate-100"
       >
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-zra-green text-xs font-bold text-white">
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-zra-navy text-xs font-bold text-white">
           {user.profile.firstName[0]}
           {user.profile.surname[0]}
         </span>

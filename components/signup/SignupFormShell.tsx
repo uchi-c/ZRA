@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { CheckCircle2, Briefcase, User } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { TaxpayerForm } from "@/components/signup/TaxpayerForm";
 import { PractitionerForm } from "@/components/signup/PractitionerForm";
@@ -69,29 +70,46 @@ export function SignupFormShell() {
     <div className="mx-auto max-w-3xl">
       <div className="card mb-6">
         <span className="field-label">Signing up as</span>
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            onClick={() => setRole("taxpayer")}
-            className={`rounded-md border px-4 py-2 text-sm font-semibold transition ${
-              role === "taxpayer"
-                ? "border-zra-green bg-emerald-50 text-zra-green"
-                : "border-slate-300 text-slate-600 hover:bg-slate-50"
-            }`}
-          >
-            1. Taxpayer
-          </button>
-          <button
-            type="button"
-            onClick={() => setRole("tax_practitioner")}
-            className={`rounded-md border px-4 py-2 text-sm font-semibold transition ${
-              role === "tax_practitioner"
-                ? "border-zra-green bg-emerald-50 text-zra-green"
-                : "border-slate-300 text-slate-600 hover:bg-slate-50"
-            }`}
-          >
-            2. Tax Practitioner
-          </button>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {(
+            [
+              { role: "taxpayer" as const, label: "Taxpayer", description: "Register to file and manage your own tax returns.", icon: User },
+              {
+                role: "tax_practitioner" as const,
+                label: "Tax Practitioner",
+                description: "Register to file and manage returns on behalf of clients.",
+                icon: Briefcase,
+              },
+            ]
+          ).map((option) => {
+            const selected = role === option.role;
+            const Icon = option.icon;
+            return (
+              <button
+                key={option.role}
+                type="button"
+                onClick={() => setRole(option.role)}
+                className={`relative flex flex-col items-start gap-2 rounded-xl border-2 p-4 text-left transition ${
+                  selected
+                    ? "border-zra-gold bg-zra-gold-light/20"
+                    : "border-slate-200 hover:border-zra-navy/40"
+                }`}
+              >
+                {selected && (
+                  <CheckCircle2 className="absolute right-3 top-3 h-5 w-5 text-zra-gold" fill="currentColor" stroke="white" />
+                )}
+                <span
+                  className={`flex h-10 w-10 items-center justify-center rounded-lg ${
+                    selected ? "bg-zra-gold text-white" : "bg-zra-navy/10 text-zra-navy"
+                  }`}
+                >
+                  <Icon className="h-5 w-5" />
+                </span>
+                <span className="text-sm font-semibold text-zra-navy-dark">{option.label}</span>
+                <span className="text-xs text-slate-500">{option.description}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -103,7 +121,7 @@ export function SignupFormShell() {
 
       <p className="mt-6 text-center text-sm text-slate-500">
         Already have an account?{" "}
-        <Link href="/login" className="font-semibold text-zra-green hover:underline">
+        <Link href="/login" className="font-semibold text-zra-navy hover:underline">
           Log in
         </Link>
       </p>

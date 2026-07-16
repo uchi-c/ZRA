@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { StepIndicator } from "@/components/signup/StepIndicator";
 import { FileUpload } from "@/components/ui/FileUpload";
-import { TextField, SelectField, RadioGroup, CheckboxField } from "@/components/ui/Field";
+import { PasswordStrengthMeter } from "@/components/ui/PasswordStrengthMeter";
+import { TextField, SelectField, SegmentedGroup, CheckboxField } from "@/components/ui/Field";
 import { PROVINCES } from "@/lib/mockData";
 import type { PractitionerProfile } from "@/lib/types";
 
@@ -158,7 +159,7 @@ export function PractitionerForm({ onSubmit, submitting, error }: PractitionerFo
         <div className="card">
           <h3 className="mb-4 text-base font-semibold text-slate-900">Professional Information</h3>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <RadioGroup
+            <SegmentedGroup
               label="Tax Practitioner Category"
               value={category}
               onChange={(v) => setCategory(v as PractitionerProfile["category"])}
@@ -167,7 +168,7 @@ export function PractitionerForm({ onSubmit, submitting, error }: PractitionerFo
               className="sm:col-span-2"
             />
             <TextField label="Professional Membership Number" value={membershipNumber} onChange={setMembershipNumber} required />
-            <RadioGroup
+            <SegmentedGroup
               label="Professional Body"
               value={professionalBody}
               onChange={(v) => setProfessionalBody(v as PractitionerProfile["professionalBody"])}
@@ -187,7 +188,7 @@ export function PractitionerForm({ onSubmit, submitting, error }: PractitionerFo
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <TextField label="TPIN Number" value={tpin} onChange={setTpin} required />
             <TextField label="Education Level / Academic Qualifications" value={educationLevel} onChange={setEducationLevel} required />
-            <RadioGroup
+            <SegmentedGroup
               label="Criminal Record Clearance"
               value={criminalRecordClearance}
               onChange={(v) => setCriminalRecordClearance(v as "Yes" | "No")}
@@ -208,8 +209,18 @@ export function PractitionerForm({ onSubmit, submitting, error }: PractitionerFo
           <h3 className="mb-4 text-base font-semibold text-slate-900">Login Credentials</h3>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <TextField label="Username" value={username} onChange={setUsername} required />
-            <TextField label="Password" type="password" value={password} onChange={setPassword} required />
-            <TextField label="Confirm Password" type="password" value={confirmPassword} onChange={setConfirmPassword} required />
+            <div>
+              <TextField label="Password" type="password" value={password} onChange={setPassword} required />
+              <PasswordStrengthMeter password={password} />
+            </div>
+            <div>
+              <TextField label="Confirm Password" type="password" value={confirmPassword} onChange={setConfirmPassword} required />
+              {confirmPassword && (
+                <p className={`mt-1.5 text-xs ${confirmPassword === password ? "text-status-green" : "text-status-red"}`}>
+                  {confirmPassword === password ? "Passwords match" : "Passwords do not match"}
+                </p>
+              )}
+            </div>
           </div>
         </div>
       )}

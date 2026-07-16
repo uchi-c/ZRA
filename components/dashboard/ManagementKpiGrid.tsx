@@ -11,14 +11,14 @@ export function ManagementKpiGrid({ kpis }: { kpis: Kpis }) {
         label="National Revenue Collected"
         value={zmwCompact(kpis.nationalRevenueCollected)}
         icon={<Wallet className="h-4 w-4" />}
-        tone="green"
+        tone="gold"
       />
       <StatCard
         label="Revenue Target Achievement"
         value={`${kpis.revenueTargetAchievement}%`}
         deltaTone="positive"
         icon={<TrendingUp className="h-4 w-4" />}
-        tone="green"
+        tone="gold"
       />
       <StatCard
         label="Tax Compliance Rate"
@@ -45,7 +45,7 @@ export function ManagementKpiGrid({ kpis }: { kpis: Kpis }) {
         label="Active Taxpayers"
         value={kpis.activeTaxpayers.toLocaleString()}
         icon={<Users className="h-4 w-4" />}
-        tone="green"
+        tone="navy"
       />
     </div>
   );

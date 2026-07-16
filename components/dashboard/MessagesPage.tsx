@@ -27,12 +27,12 @@ export function MessagesPage() {
                 onClick={() => setSelectedId(m.id)}
                 className={clsx(
                   "flex flex-col items-start gap-0.5 px-2 py-3 text-left transition",
-                  selectedId === m.id ? "bg-emerald-50" : "hover:bg-slate-50"
+                  selectedId === m.id ? "bg-zra-navy/5" : "hover:bg-slate-50"
                 )}
               >
                 <div className="flex w-full items-center justify-between">
                   <span className="text-sm font-semibold text-slate-800">{m.from}</span>
-                  {m.unread && <span className="h-2 w-2 rounded-full bg-zra-green" />}
+                  {m.unread && <span className="h-2 w-2 rounded-full bg-zra-navy" />}
                 </div>
                 <span className="text-xs font-medium text-slate-600">{m.subject}</span>
                 <span className="truncate text-xs text-slate-400">{m.preview}</span>

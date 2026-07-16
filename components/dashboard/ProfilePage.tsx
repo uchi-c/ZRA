@@ -21,14 +21,14 @@ export function ProfilePage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="card flex flex-col items-center gap-4 bg-gradient-to-r from-zra-green-dark to-zra-green text-center text-white sm:flex-row sm:text-left">
+      <div className="card flex flex-col items-center gap-4 bg-gradient-to-r from-zra-navy-dark to-zra-navy text-center text-white sm:flex-row sm:text-left">
         <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white/15 text-xl font-bold">
           {profile.firstName[0]}
           {profile.surname[0]}
         </span>
         <div>
           <h1 className="text-lg font-bold">{fullName}</h1>
-          <p className="text-sm text-emerald-100">{profile.email}</p>
+          <p className="text-sm text-white/80">{profile.email}</p>
           <div className="mt-2">
             <Pill
               label={
