@@ -5,10 +5,11 @@ import { useAuth } from "@/lib/auth";
 import { FormSection } from "@/components/ui/FormSection";
 import { TextField, CheckboxField } from "@/components/ui/Field";
 import { Toast } from "@/components/ui/Toast";
+import type { ConsultantProfile, PractitionerProfile, TaxpayerProfile } from "@/lib/types";
 
 export function SettingsPage() {
   const { user } = useAuth();
-  const profile = user!.profile;
+  const profile = user!.profile as TaxpayerProfile | PractitionerProfile | ConsultantProfile;
 
   const [firstName, setFirstName] = useState(profile.firstName);
   const [surname, setSurname] = useState(profile.surname);

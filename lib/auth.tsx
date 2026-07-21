@@ -27,9 +27,17 @@ function writeUsers(users: StoredUser[]) {
   window.localStorage.setItem(USERS_KEY, JSON.stringify(users));
 }
 
+const ROLE_PREFIX: Record<Role, string> = {
+  taxpayer: "TP",
+  tax_practitioner: "PR",
+  zra_consultant: "CN",
+  tsa_admin: "TSA",
+  boz_executive: "BOZ",
+  mofnp_admin: "MOF",
+};
+
 function generateRegistrationNumber(role: Role) {
-  const prefix = role === "taxpayer" ? "TP" : role === "tax_practitioner" ? "PR" : "CN";
-  return `ZRA-${prefix}-${Math.floor(100000 + Math.random() * 900000)}`;
+  return `ZRA-${ROLE_PREFIX[role]}-${Math.floor(100000 + Math.random() * 900000)}`;
 }
 
 function generateUserId() {
@@ -108,6 +116,48 @@ const DEMO_USERS: StoredUser[] = [
       region: "Lusaka",
     },
   },
+  {
+    password: "demo123",
+    registrationNumber: "ZRA-TSA-400001",
+    userId: "UID-40000001",
+    profile: {
+      role: "tsa_admin",
+      firstName: "TSA",
+      surname: "Admin",
+      email: "tsa.admin@mofnp.gov.zm",
+      username: "tsaadmin",
+      title: "Administrator",
+      institution: "Ministry of Finance and National Planning",
+    },
+  },
+  {
+    password: "demo123",
+    registrationNumber: "ZRA-BOZ-500001",
+    userId: "UID-50000001",
+    profile: {
+      role: "boz_executive",
+      firstName: "BOZ",
+      surname: "Executive",
+      email: "governor.office@boz.zm",
+      username: "bozexec",
+      title: "Governor",
+      institution: "Bank of Zambia",
+    },
+  },
+  {
+    password: "demo123",
+    registrationNumber: "ZRA-MOF-600001",
+    userId: "UID-60000001",
+    profile: {
+      role: "mofnp_admin",
+      firstName: "MoFNP",
+      surname: "Admin",
+      email: "admin@mofnp.gov.zm",
+      username: "mofnpadmin",
+      title: "Administrator",
+      institution: "Ministry of Finance and National Planning",
+    },
+  },
 ];
 
 function seedDemoUsers() {
@@ -138,7 +188,10 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export function dashboardPathForRole(role: Role) {
   if (role === "taxpayer") return "/dashboard/taxpayer";
   if (role === "tax_practitioner") return "/dashboard/practitioner";
-  return "/dashboard/consultant";
+  if (role === "zra_consultant") return "/dashboard/consultant";
+  if (role === "tsa_admin") return "/national/tsa";
+  if (role === "boz_executive") return "/national/boz";
+  return "/national/mofnp";
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {

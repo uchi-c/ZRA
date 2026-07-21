@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Landmark, LogIn, UserPlus } from "lucide-react";
+import { Landmark, LogIn, Network, UserPlus } from "lucide-react";
 
 const LINKS = [
   {
@@ -19,6 +19,12 @@ const LINKS = [
     title: "National Budget",
     description: "See how tax revenue collected flows into national budget allocation.",
     icon: Landmark,
+  },
+  {
+    href: "/login",
+    title: "National Command Centre",
+    description: "TSA, Bank of Zambia and Ministry of Finance dashboards for national fiscal oversight.",
+    icon: Network,
   },
 ];
 
@@ -51,12 +57,12 @@ export default function Home() {
       </div>
 
       <div className="mx-auto max-w-5xl px-4 py-14">
-        <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-3">
+        <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {LINKS.map((link) => {
             const Icon = link.icon;
             return (
               <Link
-                key={link.href}
+                key={link.title}
                 href={link.href}
                 className="card group transition hover:-translate-y-1 hover:border-zra-navy hover:shadow-lg"
               >

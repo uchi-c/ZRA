@@ -12,6 +12,9 @@ const DEMO_ACCOUNTS = [
   { role: "Taxpayer", username: "taxpayer" },
   { role: "Tax Practitioner", username: "practitioner" },
   { role: "ZRA Consultant", username: "consultant" },
+  { role: "TSA Admin", username: "tsaadmin" },
+  { role: "BOZ Executive", username: "bozexec" },
+  { role: "MoFNP Admin", username: "mofnpadmin" },
 ];
 
 const DEMO_OTP = "123456";
