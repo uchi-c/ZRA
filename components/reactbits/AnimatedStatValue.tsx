@@ -15,7 +15,7 @@ export function AnimatedStatValue({ value, className }: { value: string; classNa
   return (
     <span className={className}>
       {prefix}
-      <CountUp to={num} decimals={decimals} separator="," duration={1.2} />
+      <CountUp to={num} decimals={decimals} separator="," duration={0.5} />
       {suffix}
     </span>
   );
