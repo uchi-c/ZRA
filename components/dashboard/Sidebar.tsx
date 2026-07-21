@@ -11,6 +11,9 @@ const PORTAL_LABEL: Record<Role, string> = {
   taxpayer: "Taxpayer Portal",
   tax_practitioner: "Practitioner Portal",
   zra_consultant: "Consultant Portal",
+  tsa_admin: "TSA Dashboard",
+  boz_executive: "BOZ Dashboard",
+  mofnp_admin: "MoFNP Dashboard",
 };
 
 export function Sidebar({ role }: { role: Role }) {

@@ -1,4 +1,10 @@
-export type Role = "taxpayer" | "tax_practitioner" | "zra_consultant";
+export type Role =
+  | "taxpayer"
+  | "tax_practitioner"
+  | "zra_consultant"
+  | "tsa_admin"
+  | "boz_executive"
+  | "mofnp_admin";
 
 export type TaxpayerType =
   | "Individual"
@@ -59,7 +65,21 @@ export interface ConsultantProfile extends BaseProfile {
   region: string;
 }
 
-export type UserProfile = TaxpayerProfile | PractitionerProfile | ConsultantProfile;
+export interface InstitutionalProfile {
+  role: "tsa_admin" | "boz_executive" | "mofnp_admin";
+  firstName: string;
+  surname: string;
+  email: string;
+  username: string;
+  title: string;
+  institution: string;
+}
+
+export type UserProfile =
+  | TaxpayerProfile
+  | PractitionerProfile
+  | ConsultantProfile
+  | InstitutionalProfile;
 
 export interface StoredUser {
   profile: UserProfile;

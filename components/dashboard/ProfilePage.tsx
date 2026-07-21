@@ -4,6 +4,8 @@ import { useAuth } from "@/lib/auth";
 import { Pill } from "@/components/ui/Pill";
 import type { ConsultantProfile, PractitionerProfile, TaxpayerProfile } from "@/lib/types";
 
+type ProfileUnion = TaxpayerProfile | PractitionerProfile | ConsultantProfile;
+
 function Field({ label, value }: { label: string; value?: string }) {
   if (!value) return null;
   return (
@@ -16,7 +18,7 @@ function Field({ label, value }: { label: string; value?: string }) {
 
 export function ProfilePage() {
   const { user } = useAuth();
-  const profile = user!.profile;
+  const profile = user!.profile as ProfileUnion;
   const fullName = `${profile.firstName} ${profile.middleName ? profile.middleName + " " : ""}${profile.surname}`;
 
   return (
