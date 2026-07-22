@@ -1,9 +1,12 @@
+"use client";
+
 import clsx from "clsx";
 import type { ReactNode } from "react";
 import { LiveClock } from "@/components/reactbits/LiveClock";
 import { LiveBadge } from "@/components/reactbits/LiveBadge";
 import { ShinyText } from "@/components/reactbits/ShinyText";
 import { NotificationsBell } from "@/components/dashboard/NotificationsBell";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 interface NationalHeaderProps {
   theme: "light" | "dark";
@@ -57,6 +60,7 @@ export function NationalHeader({
 
       <div className="flex items-center gap-4">
         {showLive && <LiveBadge />}
+        <ThemeToggle />
         <NotificationsBell theme={theme} />
         <LiveClock
           className={isLight ? "text-slate-600" : "text-white/70"}

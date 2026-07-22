@@ -1,11 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { Landmark, ShieldCheck, TrendingUp } from "lucide-react";
 import { StatCard } from "@/components/ui/StatCard";
 import { RevenueFlowSankey } from "@/components/budget/RevenueFlowSankey";
 import { SectorAllocationChart } from "@/components/budget/SectorAllocationChart";
 import { BUDGET_SECTORS, MANAGEMENT_KPIS, NATIONAL_BUDGET } from "@/lib/mockData";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { useTheme } from "@/lib/theme";
 
 export default function BudgetPage() {
+  const { theme } = useTheme();
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="flex h-1.5">
@@ -27,9 +32,12 @@ export default function BudgetPage() {
               <h1 className="text-xl font-bold sm:text-2xl">Sample National Budget — FY {NATIONAL_BUDGET.fiscalYear}</h1>
             </div>
           </div>
-          <Link href="/login" className="rounded-md bg-white/10 px-3 py-1.5 text-xs font-semibold hover:bg-white/20">
-            Portal Login
-          </Link>
+          <div className="flex items-center gap-2">
+            <ThemeToggle className="!text-white/70 hover:!bg-white/10" />
+            <Link href="/login" className="rounded-md bg-white/10 px-3 py-1.5 text-xs font-semibold hover:bg-white/20">
+              Portal Login
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -86,12 +94,14 @@ export default function BudgetPage() {
 
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <StatCard
+            theme={theme}
             label="Revenue Target Achievement"
             value={`${MANAGEMENT_KPIS.revenueTargetAchievement}%`}
             deltaTone="positive"
             icon={<TrendingUp className="h-4 w-4" />}
           />
           <StatCard
+            theme={theme}
             label="Tax Compliance Rate"
             value={`${MANAGEMENT_KPIS.taxComplianceRate}%`}
             deltaTone="positive"

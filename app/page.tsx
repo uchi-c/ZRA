@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Landmark, LogIn, Network, UserPlus } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const LINKS = [
   {
@@ -41,7 +42,8 @@ export default function Home() {
         <div className="flex-1 bg-zra-gold" />
       </div>
 
-      <div className="bg-gradient-to-br from-zra-navy-dark via-zra-navy to-zra-navy-light px-4 py-20 text-white">
+      <div className="relative bg-gradient-to-br from-zra-navy-dark via-zra-navy to-zra-navy-light px-4 py-20 text-white">
+        <ThemeToggle className="absolute right-4 top-4 !text-white/70 hover:!bg-white/10" />
         <div className="mx-auto max-w-3xl text-center">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 p-2">
             <Image src="/branding/zambia-coat-of-arms.png" alt="Republic of Zambia" width={40} height={40} className="h-full w-full object-contain" />

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ShieldCheck } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { useAuth, dashboardPathForRole } from "@/lib/auth";
 import { TextField } from "@/components/ui/Field";
 import type { Role } from "@/lib/types";
@@ -59,8 +60,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="relative flex min-h-screen bg-slate-50">
+      <ThemeToggle className="absolute right-4 top-4 z-10 lg:hidden" />
       <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden bg-gradient-to-br from-zra-navy-dark via-zra-navy to-zra-navy-light p-10 text-white lg:flex">
+        <ThemeToggle className="absolute right-4 top-4 !text-white/70 hover:!bg-white/10" />
         <div className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 p-1">
             <Image src="/branding/zambia-coat-of-arms.png" alt="Republic of Zambia" width={28} height={28} className="h-full w-full object-contain" />
@@ -127,7 +130,7 @@ export default function LoginPage() {
                 )}
               </form>
 
-              <div className="mt-4 rounded-lg border border-dashed border-slate-300 bg-white p-4 text-xs text-slate-500">
+              <div className="mt-4 rounded-lg border border-dashed border-slate-300 bg-white p-4 text-xs text-slate-500 dark:border-white/20 dark:bg-white/5">
                 <p className="mb-2 font-semibold text-slate-600">Demo accounts (password: demo123)</p>
                 <ul className="flex flex-col gap-1">
                   {DEMO_ACCOUNTS.map((acc) => (

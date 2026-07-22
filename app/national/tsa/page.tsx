@@ -18,6 +18,7 @@ import { Pill } from "@/components/ui/Pill";
 import { DonutChart } from "@/components/national/DonutChart";
 import { DonutLegend } from "@/components/national/DonutLegend";
 import { ProgressBar } from "@/components/national/ProgressBar";
+import { useTheme } from "@/lib/theme";
 import {
   TSA_KPIS,
   TSA_REVENUE_SUMMARY,
@@ -99,6 +100,7 @@ const revenueTotals = TSA_REVENUE_SUMMARY.reduce(
 const budgetTotal = TSA_BUDGET_ALLOCATION.reduce((s, r) => s + r.amount, 0);
 
 export default function TsaDashboardPage() {
+  const { theme } = useTheme();
   return (
     <div className="flex flex-col gap-6">
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
@@ -107,7 +109,7 @@ export default function TsaDashboardPage() {
           return (
             <StatCard
               key={kpi.label}
-              theme="light"
+              theme={theme}
               animate
               label={kpi.label}
               value={kpi.value}
@@ -123,6 +125,7 @@ export default function TsaDashboardPage() {
         <div className="card xl:col-span-1">
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Revenue Collection Summary</h2>
           <DataTable
+            theme={theme}
             columns={revenueColumns}
             data={[
               ...TSA_REVENUE_SUMMARY,
@@ -137,8 +140,8 @@ export default function TsaDashboardPage() {
             <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Revenue by Tax Type (This Year)</h2>
             <span className="text-xs text-slate-400">Total: 100%</span>
           </div>
-          <DonutChart data={TSA_REVENUE_BY_TYPE} centerLabel="K150B" centerSub="Total Collection" />
-          <DonutLegend data={TSA_REVENUE_BY_TYPE} />
+          <DonutChart data={TSA_REVENUE_BY_TYPE} theme={theme} centerLabel="K150B" centerSub="Total Collection" />
+          <DonutLegend data={TSA_REVENUE_BY_TYPE} theme={theme} />
         </div>
 
         <div className="card">
@@ -146,7 +149,7 @@ export default function TsaDashboardPage() {
             <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">National Budget Allocation</h2>
             <span className="text-xs text-slate-400">Total Annual Revenue Available: {formatK(budgetTotal)}</span>
           </div>
-          <DataTable columns={budgetColumns} data={TSA_BUDGET_ALLOCATION} rowKey={(r) => r.ministry} />
+          <DataTable theme={theme} columns={budgetColumns} data={TSA_BUDGET_ALLOCATION} rowKey={(r) => r.ministry} />
         </div>
       </section>
 
@@ -196,6 +199,7 @@ export default function TsaDashboardPage() {
         <div className="card">
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Provincial Allocation Dashboard</h2>
           <DataTable
+            theme={theme}
             columns={provincialColumns}
             data={[...TSA_PROVINCIAL_ALLOCATION, { province: "TOTAL", amount: provincialTotal, pct: provincialTotalPct }]}
             rowKey={(r) => r.province}
@@ -204,7 +208,7 @@ export default function TsaDashboardPage() {
 
         <div className="card">
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Project Monitoring Dashboard</h2>
-          <DataTable columns={projectColumns} data={TSA_PROJECT_MONITORING} rowKey={(r) => r.project} />
+          <DataTable theme={theme} columns={projectColumns} data={TSA_PROJECT_MONITORING} rowKey={(r) => r.project} />
           <a href="#" className="mt-3 inline-block text-xs font-semibold text-zra-navy hover:underline">
             View All Projects →
           </a>
@@ -243,7 +247,7 @@ export default function TsaDashboardPage() {
               <li key={k.indicator} className="flex items-center justify-between gap-2 py-1.5">
                 <span className="text-slate-600">{k.indicator}</span>
                 <span className="text-slate-400">Target {k.target}</span>
-                <Pill label={k.actual} tone={k.status === "green" ? "green" : "amber"} />
+                <Pill theme={theme} label={k.actual} tone={k.status === "green" ? "green" : "amber"} />
               </li>
             ))}
           </ul>

@@ -38,7 +38,7 @@ export function AIAssistantWidget({
   return (
     <div className="fixed bottom-6 right-6 z-50">
       {open && (
-        <div className="mb-3 flex h-96 w-80 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
+        <div className="mb-3 flex h-96 w-80 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-slate-900">
           <div className="flex items-center justify-between bg-zra-navy-dark px-4 py-3 text-white">
             <div className="flex items-center gap-2">
               <Bot className="h-4 w-4" />
@@ -85,7 +85,7 @@ export function AIAssistantWidget({
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               placeholder={placeholder}
-              className="flex-1 rounded-full border border-slate-200 px-3 py-1.5 text-xs focus:border-zra-navy focus:outline-none"
+              className="flex-1 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-zra-navy focus:outline-none dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-white/30"
             />
             <button
               type="submit"

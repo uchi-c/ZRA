@@ -186,11 +186,11 @@ export function TaxpayerDashboard() {
             id: "computation",
             label: "Tax Computation",
             content: (
-              <div className="overflow-hidden rounded-xl border border-[#EDEFF3] shadow-card">
+              <div className="overflow-hidden rounded-xl border border-[#EDEFF3] shadow-card dark:border-white/10 dark:shadow-none">
                 <div className="bg-zra-navy px-5 py-3">
                   <h3 className="text-base font-semibold text-white">Tax Computation Summary</h3>
                 </div>
-                <div className="flex flex-col divide-y divide-slate-100 bg-white px-5 pb-2 text-sm">
+                <div className="flex flex-col divide-y divide-slate-100 bg-white px-5 pb-2 text-sm dark:divide-white/5 dark:bg-white/[0.03]">
                   <Row label="Total Income" value={zmw(totalIncome)} />
                   <Row label="Total Expenses" value={`− ${zmw(totalExpenses)}`} />
                   <Row label="Net Profit" value={zmw(netProfit)} bold />
@@ -202,7 +202,7 @@ export function TaxpayerDashboard() {
                           type="number"
                           value={nonAllowableExpenses}
                           onChange={(e) => setNonAllowableExpenses(Number(e.target.value))}
-                          className="w-28 rounded-md border border-slate-300 px-2 py-1 text-right text-sm"
+                          className="w-28 rounded-md border border-slate-300 bg-white px-2 py-1 text-right text-sm text-slate-900 dark:border-white/10 dark:bg-white/5 dark:text-white"
                         />
                       </span>
                     }
@@ -216,7 +216,7 @@ export function TaxpayerDashboard() {
                           type="number"
                           value={capitalAllowancesTax}
                           onChange={(e) => setCapitalAllowancesTax(Number(e.target.value))}
-                          className="w-28 rounded-md border border-slate-300 px-2 py-1 text-right text-sm"
+                          className="w-28 rounded-md border border-slate-300 bg-white px-2 py-1 text-right text-sm text-slate-900 dark:border-white/10 dark:bg-white/5 dark:text-white"
                         />
                       </span>
                     }
@@ -231,7 +231,7 @@ export function TaxpayerDashboard() {
                           type="number"
                           value={taxRate}
                           onChange={(e) => setTaxRate(Number(e.target.value))}
-                          className="w-16 rounded-md border border-slate-300 px-2 py-1 text-right text-sm"
+                          className="w-16 rounded-md border border-slate-300 bg-white px-2 py-1 text-right text-sm text-slate-900 dark:border-white/10 dark:bg-white/5 dark:text-white"
                         />
                         %
                       </span>
@@ -372,7 +372,7 @@ export function TaxpayerDashboard() {
                           type="number"
                           value={penalties}
                           onChange={(e) => setPenalties(Number(e.target.value))}
-                          className="w-28 rounded-md border border-slate-300 px-2 py-1 text-right text-sm"
+                          className="w-28 rounded-md border border-slate-300 bg-white px-2 py-1 text-right text-sm text-slate-900 dark:border-white/10 dark:bg-white/5 dark:text-white"
                         />
                       </span>
                     }
@@ -386,7 +386,7 @@ export function TaxpayerDashboard() {
                           type="number"
                           value={interest}
                           onChange={(e) => setInterest(Number(e.target.value))}
-                          className="w-28 rounded-md border border-slate-300 px-2 py-1 text-right text-sm"
+                          className="w-28 rounded-md border border-slate-300 bg-white px-2 py-1 text-right text-sm text-slate-900 dark:border-white/10 dark:bg-white/5 dark:text-white"
                         />
                       </span>
                     }

@@ -13,7 +13,7 @@ export function MobileNav({ role }: { role: Role }) {
   const items = navItemsForRole(role);
 
   return (
-    <nav className="flex gap-1 overflow-x-auto border-b border-slate-200 bg-white px-4 py-2 lg:hidden">
+    <nav className="flex gap-1 overflow-x-auto border-b border-slate-200 bg-white px-4 py-2 dark:border-white/10 dark:bg-slate-900 lg:hidden">
       {items.map((item) => {
         const active = currentFullPath === item.href;
         const Icon = item.icon;
