@@ -1,7 +1,10 @@
+"use client";
+
 import type { ReactNode } from "react";
 import clsx from "clsx";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { AnimatedStatValue } from "@/components/reactbits/AnimatedStatValue";
+import { useTheme } from "@/lib/theme";
 
 type Tone = "navy" | "gold" | "green" | "blue" | "amber" | "red" | "purple" | "slate";
 type Theme = "light" | "dark";
@@ -49,11 +52,13 @@ export function StatCard({
   deltaTone = "neutral",
   icon,
   tone = "navy",
-  theme = "light",
+  theme,
   animate = false,
   className,
 }: StatCardProps) {
-  const isLight = theme === "light";
+  const { theme: globalTheme } = useTheme();
+  const resolvedTheme = theme ?? globalTheme;
+  const isLight = resolvedTheme === "light";
   return (
     <div
       className={clsx(

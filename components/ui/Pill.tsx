@@ -1,4 +1,7 @@
+"use client";
+
 import clsx from "clsx";
+import { useTheme } from "@/lib/theme";
 
 type Tone = "green" | "amber" | "red" | "blue" | "slate";
 type Theme = "light" | "dark";
@@ -22,7 +25,7 @@ const STYLES_DARK: Record<Tone, string> = {
 export function Pill({
   label,
   tone = "slate",
-  theme = "light",
+  theme,
   className,
 }: {
   label: string;
@@ -30,11 +33,13 @@ export function Pill({
   theme?: Theme;
   className?: string;
 }) {
+  const { theme: globalTheme } = useTheme();
+  const resolvedTheme = theme ?? globalTheme;
   return (
     <span
       className={clsx(
         "inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold",
-        (theme === "light" ? STYLES_LIGHT : STYLES_DARK)[tone],
+        (resolvedTheme === "light" ? STYLES_LIGHT : STYLES_DARK)[tone],
         className
       )}
     >

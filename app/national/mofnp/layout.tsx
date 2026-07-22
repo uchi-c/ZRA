@@ -1,13 +1,19 @@
+"use client";
+
 import Image from "next/image";
+import clsx from "clsx";
 import { NationalSidebar } from "@/components/national/NationalSidebar";
 import { NationalHeader } from "@/components/national/NationalHeader";
 import { AIAssistantWidget } from "@/components/dashboard/AIAssistantWidget";
+import { useTheme } from "@/lib/theme";
 
 export default function MofnpLayout({ children }: { children: React.ReactNode }) {
+  const { theme } = useTheme();
+
   return (
-    <div className="flex min-h-screen bg-slate-950 text-white">
+    <div className={clsx("flex min-h-screen", theme === "light" ? "bg-slate-100" : "bg-slate-950 text-white")}>
       <NationalSidebar
-        theme="dark"
+        theme={theme}
         brandIcon={
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 p-1">
             <Image src="/branding/zambia-coat-of-arms.png" alt="Republic of Zambia" width={28} height={28} className="h-full w-full object-contain" />
@@ -19,7 +25,7 @@ export default function MofnpLayout({ children }: { children: React.ReactNode })
       />
       <div className="flex min-w-0 flex-1 flex-col">
         <NationalHeader
-          theme="dark"
+          theme={theme}
           brandIcon={
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 p-1.5">
               <Image src="/branding/zambia-coat-of-arms.png" alt="Republic of Zambia" width={32} height={32} className="h-full w-full object-contain" />

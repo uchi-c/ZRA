@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import clsx from "clsx";
+import { useTheme } from "@/lib/theme";
 
 export interface DataTableColumn<T> {
   key: string;
@@ -21,10 +22,11 @@ interface DataTableProps<T> {
   theme?: "light" | "dark";
 }
 
-export function DataTable<T>({ columns, data, rowKey, className, emptyMessage, theme = "light" }: DataTableProps<T>) {
+export function DataTable<T>({ columns, data, rowKey, className, emptyMessage, theme }: DataTableProps<T>) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
-  const isLight = theme === "light";
+  const { theme: globalTheme } = useTheme();
+  const isLight = (theme ?? globalTheme) === "light";
 
   const sorted = useMemo(() => {
     if (!sortKey) return data;

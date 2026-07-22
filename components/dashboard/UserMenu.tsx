@@ -38,7 +38,7 @@ export function UserMenu() {
             className="fixed inset-0 z-40 cursor-default"
             onClick={() => setOpen(false)}
           />
-          <div className="absolute right-0 z-50 mt-2 w-56 rounded-xl border border-slate-200 bg-white p-2 shadow-lg">
+          <div className="absolute right-0 z-50 mt-2 w-56 rounded-xl border border-slate-200 bg-white p-2 shadow-lg dark:border-white/10 dark:bg-slate-900">
             <div className="border-b border-slate-100 px-3 py-2">
               <p className="text-sm font-semibold text-slate-900">{fullName}</p>
               <p className="truncate text-xs text-slate-500">{user.profile.email}</p>
@@ -63,7 +63,7 @@ export function UserMenu() {
                 logout();
                 router.push("/login");
               }}
-              className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50"
+              className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/10"
             >
               <LogOut className="h-4 w-4" /> Log Out
             </button>

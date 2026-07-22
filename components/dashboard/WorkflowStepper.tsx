@@ -30,9 +30,9 @@ export function WorkflowStepper({ role }: { role: Role }) {
                 <span
                   className={clsx(
                     "flex h-9 w-9 items-center justify-center rounded-full border-2 transition",
-                    isActive && "border-zra-navy bg-zra-navy text-white",
-                    isPast && !isActive && "border-zra-navy/30 bg-zra-navy/5 text-zra-navy",
-                    !isActive && !isPast && "border-slate-200 bg-white text-slate-400"
+                    isActive && "border-zra-navy bg-zra-navy text-white dark:border-zra-gold dark:bg-zra-gold dark:text-zra-navy-dark",
+                    isPast && !isActive && "border-zra-navy/30 bg-zra-navy/5 text-zra-navy dark:border-zra-gold/40 dark:bg-zra-gold/10 dark:text-zra-gold",
+                    !isActive && !isPast && "border-slate-200 bg-white text-slate-400 dark:bg-white/5"
                   )}
                 >
                   <Icon className="h-4 w-4" />
@@ -40,14 +40,14 @@ export function WorkflowStepper({ role }: { role: Role }) {
                 <span
                   className={clsx(
                     "max-w-[6.5rem] text-[11px] font-medium leading-tight",
-                    isActive ? "text-zra-navy" : "text-slate-500"
+                    isActive ? "text-zra-navy dark:text-zra-gold" : "text-slate-500"
                   )}
                 >
                   {stage.label}
                 </span>
               </Link>
               {i < STAGES.length - 1 && (
-                <div className={clsx("mb-5 h-0.5 flex-1", isPast ? "bg-zra-navy/40" : "bg-slate-200")} />
+                <div className={clsx("mb-5 h-0.5 flex-1", isPast ? "bg-zra-navy/40 dark:bg-zra-gold/40" : "bg-slate-200")} />
               )}
             </li>
           );

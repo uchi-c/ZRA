@@ -7,6 +7,11 @@
   --foreground: #1b2333;
 }
 
+.dark {
+  --background: #0a0f1e;
+  --foreground: #e2e8f0;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
@@ -55,18 +60,73 @@ body {
 
 @layer components {
   .field-label {
-    @apply mb-1 block text-sm font-medium text-slate-700;
+    @apply mb-1 block text-sm font-medium text-slate-700 dark:text-white/70;
   }
   .field-input {
-    @apply w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-zra-navy focus:outline-none focus:ring-1 focus:ring-zra-navy;
+    @apply w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-zra-navy focus:outline-none focus:ring-1 focus:ring-zra-navy dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-white/30 dark:focus:border-zra-gold dark:focus:ring-zra-gold;
   }
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 rounded-md bg-zra-gold px-4 py-2 text-sm font-semibold text-zra-navy-dark shadow-sm transition hover:bg-zra-gold-light disabled:cursor-not-allowed disabled:opacity-50;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-md border border-zra-navy bg-white px-4 py-2 text-sm font-semibold text-zra-navy shadow-sm transition hover:bg-zra-navy/5;
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-zra-navy bg-white px-4 py-2 text-sm font-semibold text-zra-navy shadow-sm transition hover:bg-zra-navy/5 dark:border-zra-gold/40 dark:bg-white/5 dark:text-zra-gold dark:hover:bg-white/10;
   }
   .card {
-    @apply rounded-xl border border-[#EDEFF3] bg-white p-5 shadow-card;
+    @apply rounded-xl border border-[#EDEFF3] bg-white p-5 shadow-card dark:border-white/10 dark:bg-white/[0.03] dark:shadow-none;
+  }
+}
+
+/*
+ * Blanket dark-mode remap for the raw slate text/background/border utilities
+ * used throughout the per-page dashboard content (built long before the
+ * theme toggle existed). Deliberately excludes `bg-white`, which a handful
+ * of spots (logo backdrops, toggle knobs, active-tab pills) rely on staying
+ * literally white in both themes.
+ */
+@layer utilities {
+  .dark .text-slate-900 {
+    @apply text-white;
+  }
+  .dark .text-slate-800 {
+    @apply text-white/90;
+  }
+  .dark .text-slate-700 {
+    @apply text-white/80;
+  }
+  .dark .text-slate-600 {
+    @apply text-white/70;
+  }
+  .dark .text-slate-500 {
+    @apply text-white/50;
+  }
+  .dark .text-slate-400 {
+    @apply text-white/40;
+  }
+  .dark .bg-slate-50 {
+    @apply bg-white/5;
+  }
+  .dark .bg-slate-100 {
+    @apply bg-white/5;
+  }
+  .dark .border-slate-100 {
+    @apply border-white/5;
+  }
+  .dark .border-slate-200 {
+    @apply border-white/10;
+  }
+  .dark .border-slate-300 {
+    @apply border-white/15;
+  }
+  .dark .divide-slate-100 {
+    @apply divide-white/5;
+  }
+  .dark .divide-slate-200 {
+    @apply divide-white/10;
+  }
+  .dark .hover\:bg-slate-50:hover {
+    @apply bg-white/5;
+  }
+  .dark .hover\:bg-slate-100:hover {
+    @apply bg-white/10;
   }
 }
