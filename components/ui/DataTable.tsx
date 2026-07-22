@@ -18,11 +18,13 @@ interface DataTableProps<T> {
   rowKey: (row: T) => string;
   className?: string;
   emptyMessage?: string;
+  theme?: "light" | "dark";
 }
 
-export function DataTable<T>({ columns, data, rowKey, className, emptyMessage }: DataTableProps<T>) {
+export function DataTable<T>({ columns, data, rowKey, className, emptyMessage, theme = "light" }: DataTableProps<T>) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const isLight = theme === "light";
 
   const sorted = useMemo(() => {
     if (!sortKey) return data;
@@ -50,20 +52,21 @@ export function DataTable<T>({ columns, data, rowKey, className, emptyMessage }:
   }
 
   return (
-    <div className={clsx("overflow-x-auto rounded-lg border border-slate-200", className)}>
-      <table className="min-w-full divide-y divide-slate-200 text-sm">
-        <thead className="bg-slate-50">
+    <div className={clsx("overflow-x-auto rounded-lg border", isLight ? "border-slate-200" : "border-white/10", className)}>
+      <table className={clsx("min-w-full divide-y text-sm", isLight ? "divide-slate-200" : "divide-white/10")}>
+        <thead className={isLight ? "bg-slate-50" : "bg-white/5"}>
           <tr>
             {columns.map((col) => (
               <th
                 key={col.key}
                 onClick={() => toggleSort(col)}
                 className={clsx(
-                  "whitespace-nowrap px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500",
+                  "whitespace-nowrap px-4 py-2.5 text-xs font-semibold uppercase tracking-wide",
+                  isLight ? "text-slate-500" : "text-white/50",
                   col.align === "right" && "text-right",
                   col.align === "center" && "text-center",
                   (!col.align || col.align === "left") && "text-left",
-                  col.sortable && "cursor-pointer select-none hover:text-slate-700"
+                  col.sortable && (isLight ? "cursor-pointer select-none hover:text-slate-700" : "cursor-pointer select-none hover:text-white")
                 )}
               >
                 {col.header}
@@ -72,21 +75,22 @@ export function DataTable<T>({ columns, data, rowKey, className, emptyMessage }:
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-100 bg-white">
+        <tbody className={clsx("divide-y", isLight ? "divide-slate-100 bg-white" : "divide-white/5 bg-transparent")}>
           {sorted.length === 0 ? (
             <tr>
-              <td colSpan={columns.length} className="px-4 py-8 text-center text-slate-400">
+              <td colSpan={columns.length} className={clsx("px-4 py-8 text-center", isLight ? "text-slate-400" : "text-white/40")}>
                 {emptyMessage ?? "No records to display."}
               </td>
             </tr>
           ) : (
             sorted.map((row) => (
-              <tr key={rowKey(row)} className="hover:bg-slate-50">
+              <tr key={rowKey(row)} className={isLight ? "hover:bg-slate-50" : "hover:bg-white/5"}>
                 {columns.map((col) => (
                   <td
                     key={col.key}
                     className={clsx(
-                      "whitespace-nowrap px-4 py-2.5 text-slate-700",
+                      "whitespace-nowrap px-4 py-2.5",
+                      isLight ? "text-slate-700" : "text-white/80",
                       col.align === "right" && "text-right",
                       col.align === "center" && "text-center"
                     )}

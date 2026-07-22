@@ -1,5 +1,6 @@
 import { NationalSidebar } from "@/components/national/NationalSidebar";
 import { NationalHeader } from "@/components/national/NationalHeader";
+import { AIAssistantWidget } from "@/components/dashboard/AIAssistantWidget";
 
 export default function MofnpLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -30,6 +31,13 @@ export default function MofnpLayout({ children }: { children: React.ReactNode })
           {children}
         </main>
       </div>
+      <AIAssistantWidget
+        title="MoFNP Fiscal Assistant"
+        greeting="Hello! I'm your MoFNP Fiscal Assistant. Ask me about budget execution, expenditure control, or economic indicators."
+        quickPrompts={["Budget execution rate", "Expenditure by sector", "Debt sustainability", "PIP project status"]}
+        cannedReply="This is a demo MoFNP assistant. In production this would query IFMIS and the national economic intelligence platform for real-time fiscal data."
+        placeholder="Ask about budget or economic data..."
+      />
     </div>
   );
 }

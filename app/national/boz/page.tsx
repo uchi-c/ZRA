@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Percent,
   TrendingUp,
@@ -12,7 +14,9 @@ import {
   Brain,
 } from "lucide-react";
 import { DarkPanel } from "@/components/national/DarkPanel";
-import { CommandStat } from "@/components/national/CommandStat";
+import { StatCard } from "@/components/ui/StatCard";
+import { DataTable, type DataTableColumn } from "@/components/ui/DataTable";
+import { Pill } from "@/components/ui/Pill";
 import { DonutChart } from "@/components/national/DonutChart";
 import { DonutLegend } from "@/components/national/DonutLegend";
 import { SimpleBarChart } from "@/components/national/SimpleBarChart";
@@ -32,7 +36,15 @@ import {
   BOZ_EARLY_WARNING,
   BOZ_SYSTEM_INTEGRATIONS,
   BOZ_AI_ENGINE,
+  type FxRateRow,
 } from "@/lib/nationalMockData";
+
+const fxColumns: DataTableColumn<FxRateRow>[] = [
+  { key: "currency", header: "Currency", render: (r) => `${r.flag} ${r.currency}` },
+  { key: "buy", header: "Buy", align: "right", render: (r) => r.buy },
+  { key: "sell", header: "Sell", align: "right", render: (r) => r.sell },
+  { key: "change", header: "Change", align: "right", render: (r) => <span className="font-semibold text-status-green">{r.change}</span> },
+];
 
 const KPI_ICONS = [Percent, TrendingUp, DollarSign, Globe2, Landmark, ReceiptText, Droplets, Coins, LineChart];
 
@@ -49,15 +61,13 @@ function StatRow({ label, value, tone }: { label: string; value: string; tone?: 
   );
 }
 
-const STATUS_DOT = { green: "bg-status-green", amber: "bg-status-amber", red: "bg-status-red" } as const;
-
 export default function BozDashboardPage() {
   return (
     <div className="flex flex-col gap-6">
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">
         {BOZ_KPIS.map((kpi, i) => {
           const Icon = KPI_ICONS[i];
-          return <CommandStat key={kpi.label} theme="dark" label={kpi.label} value={kpi.value} sub={kpi.sub} icon={<Icon className="h-4 w-4" />} />;
+          return <StatCard key={kpi.label} theme="dark" animate label={kpi.label} value={kpi.value} sub={kpi.sub} icon={<Icon className="h-4 w-4" />} />;
         })}
       </section>
 
@@ -116,28 +126,7 @@ export default function BozDashboardPage() {
         </DarkPanel>
 
         <DarkPanel title="Foreign Exchange Market (Live Rates)">
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="text-white/40">
-                <th className="pb-2 text-left font-medium">Currency</th>
-                <th className="pb-2 text-right font-medium">Buy</th>
-                <th className="pb-2 text-right font-medium">Sell</th>
-                <th className="pb-2 text-right font-medium">Change</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-white/5">
-              {BOZ_FX_RATES.map((r) => (
-                <tr key={r.currency}>
-                  <td className="py-1.5 text-white">
-                    {r.flag} {r.currency}
-                  </td>
-                  <td className="py-1.5 text-right text-white/70">{r.buy}</td>
-                  <td className="py-1.5 text-right text-white/70">{r.sell}</td>
-                  <td className="py-1.5 text-right font-semibold text-status-green">{r.change}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <DataTable theme="dark" columns={fxColumns} data={BOZ_FX_RATES} rowKey={(r) => r.currency} />
         </DarkPanel>
 
         <DarkPanel title="Monetary Policy Dashboard">
@@ -179,10 +168,7 @@ export default function BozDashboardPage() {
             {BOZ_EARLY_WARNING.map((r) => (
               <li key={r.label} className="flex items-center justify-between gap-2 py-1.5 text-xs">
                 <span className="text-white/60">{r.label}</span>
-                <span className={`flex items-center gap-1.5 font-semibold ${r.status === "green" ? "text-status-green" : "text-status-amber"}`}>
-                  <span className={`h-1.5 w-1.5 rounded-full ${STATUS_DOT[r.status]}`} />
-                  {r.status === "green" ? "Low" : "Moderate"}
-                </span>
+                <Pill theme="dark" tone={r.status === "green" ? "green" : "amber"} label={r.status === "green" ? "Low" : "Moderate"} />
               </li>
             ))}
           </ul>
@@ -203,7 +189,7 @@ export default function BozDashboardPage() {
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-status-green" />
                 </span>
                 {s}
-                <span className="ml-auto text-[10px] text-status-green">Connected</span>
+                <Pill theme="dark" tone="green" label="Connected" className="ml-auto px-2 py-0.5 text-[10px]" />
               </div>
             ))}
           </div>

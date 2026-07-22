@@ -1,8 +1,9 @@
 import clsx from "clsx";
 
 type Tone = "green" | "amber" | "red" | "blue" | "slate";
+type Theme = "light" | "dark";
 
-const STYLES: Record<Tone, string> = {
+const STYLES_LIGHT: Record<Tone, string> = {
   green: "bg-status-green/15 text-status-green",
   amber: "bg-status-amber/15 text-status-amber",
   red: "bg-status-red/15 text-status-red",
@@ -10,12 +11,30 @@ const STYLES: Record<Tone, string> = {
   slate: "bg-slate-200/60 text-slate-700",
 };
 
-export function Pill({ label, tone = "slate", className }: { label: string; tone?: Tone; className?: string }) {
+const STYLES_DARK: Record<Tone, string> = {
+  green: "bg-status-green/15 text-status-green",
+  amber: "bg-status-amber/15 text-status-amber",
+  red: "bg-status-red/15 text-status-red",
+  blue: "bg-sky-400/15 text-sky-300",
+  slate: "bg-white/10 text-white/70",
+};
+
+export function Pill({
+  label,
+  tone = "slate",
+  theme = "light",
+  className,
+}: {
+  label: string;
+  tone?: Tone;
+  theme?: Theme;
+  className?: string;
+}) {
   return (
     <span
       className={clsx(
         "inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold",
-        STYLES[tone],
+        (theme === "light" ? STYLES_LIGHT : STYLES_DARK)[tone],
         className
       )}
     >

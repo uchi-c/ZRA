@@ -8,23 +8,30 @@ interface ChatMessage {
   text: string;
 }
 
-const INITIAL_MESSAGES: ChatMessage[] = [
-  { from: "bot", text: "Hello! I'm your AI Tax Assistant. How can I help you today?" },
-];
+const DEFAULT_QUICK_PROMPTS = ["Tax compliance guidance", "Tax computation help", "Penalty estimation", "Filing assistance"];
 
-const QUICK_PROMPTS = ["Tax compliance guidance", "Tax computation help", "Penalty estimation", "Filing assistance"];
+interface AIAssistantWidgetProps {
+  title?: string;
+  greeting?: string;
+  quickPrompts?: string[];
+  cannedReply?: string;
+  placeholder?: string;
+}
 
-const CANNED_REPLY =
-  "This is a demo AI Tax Assistant. In production this would connect to the AI Compliance Engine to answer questions about your filings, payments, and compliance status in real time.";
-
-export function AIAssistantWidget() {
+export function AIAssistantWidget({
+  title = "AI Tax Assistant",
+  greeting = "Hello! I'm your AI Tax Assistant. How can I help you today?",
+  quickPrompts = DEFAULT_QUICK_PROMPTS,
+  cannedReply = "This is a demo AI Tax Assistant. In production this would connect to the AI Compliance Engine to answer questions about your filings, payments, and compliance status in real time.",
+  placeholder = "Ask me anything about taxes...",
+}: AIAssistantWidgetProps) {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
+  const [messages, setMessages] = useState<ChatMessage[]>([{ from: "bot", text: greeting }]);
   const [draft, setDraft] = useState("");
 
   function send(text: string) {
     if (!text.trim()) return;
-    setMessages((prev) => [...prev, { from: "user", text }, { from: "bot", text: CANNED_REPLY }]);
+    setMessages((prev) => [...prev, { from: "user", text }, { from: "bot", text: cannedReply }]);
     setDraft("");
   }
 
@@ -35,7 +42,7 @@ export function AIAssistantWidget() {
           <div className="flex items-center justify-between bg-zra-navy-dark px-4 py-3 text-white">
             <div className="flex items-center gap-2">
               <Bot className="h-4 w-4" />
-              <span className="text-sm font-semibold">AI Tax Assistant</span>
+              <span className="text-sm font-semibold">{title}</span>
             </div>
             <button type="button" onClick={() => setOpen(false)} aria-label="Close assistant">
               <X className="h-4 w-4" />
@@ -56,7 +63,7 @@ export function AIAssistantWidget() {
             ))}
           </div>
           <div className="flex flex-wrap gap-1.5 border-t border-slate-100 px-3 py-2">
-            {QUICK_PROMPTS.map((p) => (
+            {quickPrompts.map((p) => (
               <button
                 key={p}
                 type="button"
@@ -77,7 +84,7 @@ export function AIAssistantWidget() {
             <input
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
-              placeholder="Ask me anything about taxes..."
+              placeholder={placeholder}
               className="flex-1 rounded-full border border-slate-200 px-3 py-1.5 text-xs focus:border-zra-navy focus:outline-none"
             />
             <button
