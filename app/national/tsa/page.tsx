@@ -13,7 +13,8 @@ import {
   Globe2,
 } from "lucide-react";
 import { DataTable, type DataTableColumn } from "@/components/ui/DataTable";
-import { CommandStat } from "@/components/national/CommandStat";
+import { StatCard } from "@/components/ui/StatCard";
+import { Pill } from "@/components/ui/Pill";
 import { DonutChart } from "@/components/national/DonutChart";
 import { DonutLegend } from "@/components/national/DonutLegend";
 import { ProgressBar } from "@/components/national/ProgressBar";
@@ -74,9 +75,7 @@ const projectColumns: DataTableColumn<ProjectMonitoringRow>[] = [
     key: "status",
     header: "Status",
     render: (r) => (
-      <span className={r.status === "On Track" ? "text-status-green" : r.status === "In Progress" ? "text-status-amber" : "text-status-red"}>
-        {r.status}
-      </span>
+      <Pill label={r.status} tone={r.status === "On Track" ? "green" : r.status === "In Progress" ? "amber" : "red"} />
     ),
   },
   {
@@ -106,9 +105,10 @@ export default function TsaDashboardPage() {
         {TSA_KPIS.map((kpi, i) => {
           const Icon = KPI_ICONS[i];
           return (
-            <CommandStat
+            <StatCard
               key={kpi.label}
               theme="light"
+              animate
               label={kpi.label}
               value={kpi.value}
               delta={kpi.delta}
@@ -243,7 +243,7 @@ export default function TsaDashboardPage() {
               <li key={k.indicator} className="flex items-center justify-between gap-2 py-1.5">
                 <span className="text-slate-600">{k.indicator}</span>
                 <span className="text-slate-400">Target {k.target}</span>
-                <span className={`font-semibold ${k.status === "green" ? "text-status-green" : "text-status-amber"}`}>{k.actual}</span>
+                <Pill label={k.actual} tone={k.status === "green" ? "green" : "amber"} />
               </li>
             ))}
           </ul>

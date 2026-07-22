@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import type { ReactNode } from "react";
-import { Bell } from "lucide-react";
 import { LiveClock } from "@/components/reactbits/LiveClock";
 import { LiveBadge } from "@/components/reactbits/LiveBadge";
 import { ShinyText } from "@/components/reactbits/ShinyText";
+import { NotificationsBell } from "@/components/dashboard/NotificationsBell";
 
 interface NationalHeaderProps {
   theme: "light" | "dark";
@@ -15,7 +15,6 @@ interface NationalHeaderProps {
   userName: string;
   userTitle: string;
   showLive?: boolean;
-  notificationCount?: number;
 }
 
 export function NationalHeader({
@@ -28,7 +27,6 @@ export function NationalHeader({
   userName,
   userTitle,
   showLive = false,
-  notificationCount = 5,
 }: NationalHeaderProps) {
   const isLight = theme === "light";
   return (
@@ -59,20 +57,7 @@ export function NationalHeader({
 
       <div className="flex items-center gap-4">
         {showLive && <LiveBadge />}
-        <button
-          className={clsx(
-            "relative flex h-9 w-9 items-center justify-center rounded-lg transition",
-            isLight ? "text-slate-500 hover:bg-slate-100" : "text-white/70 hover:bg-white/10"
-          )}
-          aria-label="Notifications"
-        >
-          <Bell className="h-4 w-4" />
-          {notificationCount > 0 && (
-            <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-status-red text-[9px] font-bold text-white">
-              {notificationCount}
-            </span>
-          )}
-        </button>
+        <NotificationsBell theme={theme} />
         <LiveClock
           className={isLight ? "text-slate-600" : "text-white/70"}
           dateClassName={isLight ? "text-slate-500" : "text-white/50"}

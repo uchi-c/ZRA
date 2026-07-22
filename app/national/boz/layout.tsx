@@ -1,6 +1,7 @@
 import { Landmark } from "lucide-react";
 import { NationalSidebar } from "@/components/national/NationalSidebar";
 import { NationalHeader } from "@/components/national/NationalHeader";
+import { AIAssistantWidget } from "@/components/dashboard/AIAssistantWidget";
 
 export default function BozLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -36,6 +37,13 @@ export default function BozLayout({ children }: { children: React.ReactNode }) {
           {children}
         </main>
       </div>
+      <AIAssistantWidget
+        title="BOZ Economic Assistant"
+        greeting="Hello, Governor. Ask me about monetary policy, forex reserves, banking sector health, or public debt."
+        quickPrompts={["Inflation outlook", "Forex reserve position", "Banking sector risk", "Public debt sustainability"]}
+        cannedReply="This is a demo BOZ assistant. In production this would query the Bank of Zambia's monetary and financial intelligence systems for real-time analysis."
+        placeholder="Ask about monetary or financial data..."
+      />
     </div>
   );
 }

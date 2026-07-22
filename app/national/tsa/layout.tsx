@@ -1,6 +1,7 @@
 import { LandPlot } from "lucide-react";
 import { NationalSidebar } from "@/components/national/NationalSidebar";
 import { NationalHeader } from "@/components/national/NationalHeader";
+import { AIAssistantWidget } from "@/components/dashboard/AIAssistantWidget";
 
 export default function TsaLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -41,6 +42,13 @@ export default function TsaLayout({ children }: { children: React.ReactNode }) {
           {children}
         </main>
       </div>
+      <AIAssistantWidget
+        title="TSA Revenue Assistant"
+        greeting="Hello! I'm your TSA Revenue Assistant. Ask me about collections, budget allocations, or provincial performance."
+        quickPrompts={["Revenue collection trends", "Budget allocation status", "Provincial performance", "Outstanding project risks"]}
+        cannedReply="This is a demo TSA assistant. In production this would query the national fiscal data integration platform for real-time revenue and budget figures."
+        placeholder="Ask about revenue or budget allocation..."
+      />
     </div>
   );
 }

@@ -1,3 +1,6 @@
+"use client";
+
+import clsx from "clsx";
 import {
   Wallet,
   TrendingUp,
@@ -13,7 +16,9 @@ import {
   Brain,
 } from "lucide-react";
 import { DarkPanel } from "@/components/national/DarkPanel";
-import { CommandStat } from "@/components/national/CommandStat";
+import { StatCard } from "@/components/ui/StatCard";
+import { DataTable, type DataTableColumn } from "@/components/ui/DataTable";
+import { Pill } from "@/components/ui/Pill";
 import { DonutChart } from "@/components/national/DonutChart";
 import { SimpleBarChart } from "@/components/national/SimpleBarChart";
 import { ProgressBar } from "@/components/national/ProgressBar";
@@ -32,11 +37,22 @@ import {
   MOFNP_AI_INTELLIGENCE,
   MOFNP_PRESIDENTIAL_BRIEFING,
   MOFNP_DECISION_SUPPORT,
+  type RevenueStreamRow,
 } from "@/lib/nationalMockData";
 
 const KPI_ICONS = [Wallet, TrendingUp, HandCoins, AlertTriangle, ReceiptText, LineChart, Percent, Globe2, Landmark];
 
-const STATUS_DOT = { green: "bg-status-green", amber: "bg-status-amber", red: "bg-status-red" } as const;
+const revenueColumns: DataTableColumn<RevenueStreamRow>[] = [
+  { key: "stream", header: "Revenue Stream", render: (r) => r.stream },
+  { key: "amount", header: "Collection", align: "right", render: (r) => r.amount },
+  { key: "pct", header: "% of Total", align: "right", render: (r) => `${r.pct}%` },
+];
+
+const publicDebtColumns: DataTableColumn<(typeof MOFNP_PUBLIC_DEBT)[number]>[] = [
+  { key: "category", header: "Category", render: (r) => r.category },
+  { key: "amount", header: "K Billion", align: "right", render: (r) => r.amount.toFixed(1) },
+  { key: "pct", header: "%", align: "right", render: (r) => `${r.pct}%` },
+];
 
 function FlowStep({ label }: { label: string }) {
   return <div className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-center text-[11px] font-medium text-white/80">{label}</div>;
@@ -48,7 +64,7 @@ export default function MofnpDashboardPage() {
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">
         {MOFNP_KPIS.map((kpi, i) => {
           const Icon = KPI_ICONS[i];
-          return <CommandStat key={kpi.label} theme="dark" label={kpi.label} value={kpi.value} sub={kpi.sub} icon={<Icon className="h-4 w-4" />} />;
+          return <StatCard key={kpi.label} theme="dark" animate label={kpi.label} value={kpi.value} sub={kpi.sub} icon={<Icon className="h-4 w-4" />} />;
         })}
       </section>
 
@@ -93,24 +109,7 @@ export default function MofnpDashboardPage() {
 
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-3">
         <DarkPanel title="Government Revenue Monitoring (Monthly, May 2025)">
-          <table className="mb-4 w-full text-xs">
-            <thead>
-              <tr className="text-white/40">
-                <th className="pb-2 text-left font-medium">Revenue Stream</th>
-                <th className="pb-2 text-right font-medium">Collection</th>
-                <th className="pb-2 text-right font-medium">% of Total</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-white/5">
-              {MOFNP_REVENUE_MONITORING.map((r) => (
-                <tr key={r.stream}>
-                  <td className="py-1.5 text-white/80">{r.stream}</td>
-                  <td className="py-1.5 text-right text-white">{r.amount}</td>
-                  <td className="py-1.5 text-right text-white/60">{r.pct}%</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <DataTable theme="dark" columns={revenueColumns} data={MOFNP_REVENUE_MONITORING} rowKey={(r) => r.stream} className="mb-4" />
           <div className="flex flex-wrap items-center justify-center gap-2">
             <FlowStep label="Taxpayers" />
             <ArrowRight className="h-3.5 w-3.5 text-white/30" />
@@ -161,24 +160,7 @@ export default function MofnpDashboardPage() {
         </DarkPanel>
 
         <DarkPanel title="Public Debt Management (April 2025)">
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="text-white/40">
-                <th className="pb-2 text-left font-medium">Category</th>
-                <th className="pb-2 text-right font-medium">K Billion</th>
-                <th className="pb-2 text-right font-medium">%</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-white/5">
-              {MOFNP_PUBLIC_DEBT.map((r) => (
-                <tr key={r.category}>
-                  <td className="py-1.5 text-white/80">{r.category}</td>
-                  <td className="py-1.5 text-right text-white">{r.amount.toFixed(1)}</td>
-                  <td className="py-1.5 text-right text-white/60">{r.pct}%</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <DataTable theme="dark" columns={publicDebtColumns} data={MOFNP_PUBLIC_DEBT} rowKey={(r) => r.category} />
           <p className="mt-3 rounded-lg bg-status-amber/10 px-3 py-2 text-center text-xs font-semibold text-status-amber">
             Debt / GDP Ratio 75% — Moderate Risk
           </p>
@@ -190,7 +172,12 @@ export default function MofnpDashboardPage() {
               <li key={p.project} className="text-xs">
                 <div className="mb-1 flex items-center justify-between">
                   <span className="flex items-center gap-1.5 text-white/80">
-                    <span className={`h-1.5 w-1.5 rounded-full ${STATUS_DOT[p.status]}`} />
+                    <span
+                      className={clsx(
+                        "h-1.5 w-1.5 rounded-full",
+                        p.status === "green" ? "bg-status-green" : p.status === "amber" ? "bg-status-amber" : "bg-status-red"
+                      )}
+                    />
                     {p.project}
                   </span>
                   <span className="text-white/50">K{p.budget.toFixed(1)}B · {p.progress}%</span>
@@ -283,10 +270,7 @@ export default function MofnpDashboardPage() {
             {MOFNP_PRESIDENTIAL_BRIEFING.map((r) => (
               <li key={r.label} className="flex items-center justify-between gap-2 py-1.5 text-xs">
                 <span className="text-white/70">{r.label}</span>
-                <span className={`flex items-center gap-1.5 font-semibold ${r.tone === "green" ? "text-status-green" : "text-status-amber"}`}>
-                  <span className={`h-1.5 w-1.5 rounded-full ${STATUS_DOT[r.tone]}`} />
-                  {r.status}
-                </span>
+                <Pill theme="dark" tone={r.tone === "green" ? "green" : "amber"} label={r.status} />
               </li>
             ))}
           </ul>
