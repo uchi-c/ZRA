@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Landmark, LogIn, Network, UserPlus } from "lucide-react";
 
 const LINKS = [
@@ -42,8 +43,8 @@ export default function Home() {
 
       <div className="bg-gradient-to-br from-zra-navy-dark via-zra-navy to-zra-navy-light px-4 py-20 text-white">
         <div className="mx-auto max-w-3xl text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-2xl">
-            🇿🇲
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 p-2">
+            <Image src="/branding/zambia-coat-of-arms.png" alt="Republic of Zambia" width={40} height={40} className="h-full w-full object-contain" />
           </div>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
             Zambia Revenue Authority

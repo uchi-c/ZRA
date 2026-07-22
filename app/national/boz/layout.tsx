@@ -1,4 +1,4 @@
-import { Landmark } from "lucide-react";
+import Image from "next/image";
 import { NationalSidebar } from "@/components/national/NationalSidebar";
 import { NationalHeader } from "@/components/national/NationalHeader";
 import { AIAssistantWidget } from "@/components/dashboard/AIAssistantWidget";
@@ -9,8 +9,8 @@ export default function BozLayout({ children }: { children: React.ReactNode }) {
       <NationalSidebar
         theme="dark"
         brandIcon={
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zra-gold/15 text-zra-gold">
-            <Landmark className="h-5 w-5" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white p-1">
+            <Image src="/branding/boz-mark.png" alt="Bank of Zambia" width={28} height={28} className="h-full w-full object-contain" />
           </div>
         }
         brandLabel="Bank of Zambia"
@@ -21,8 +21,8 @@ export default function BozLayout({ children }: { children: React.ReactNode }) {
         <NationalHeader
           theme="dark"
           brandIcon={
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-zra-gold/15 text-zra-gold">
-              <Landmark className="h-5 w-5" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white p-1.5">
+              <Image src="/branding/boz-mark.png" alt="Bank of Zambia" width={32} height={32} className="h-full w-full object-contain" />
             </div>
           }
           orgName="Bank of Zambia"

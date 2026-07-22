@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { ShieldCheck } from "lucide-react";
 import { useAuth, dashboardPathForRole } from "@/lib/auth";
 import { TextField } from "@/components/ui/Field";
@@ -61,7 +62,9 @@ export default function LoginPage() {
     <div className="flex min-h-screen bg-slate-50">
       <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden bg-gradient-to-br from-zra-navy-dark via-zra-navy to-zra-navy-light p-10 text-white lg:flex">
         <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 text-lg">🇿🇲</div>
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 p-1">
+            <Image src="/branding/zambia-coat-of-arms.png" alt="Republic of Zambia" width={28} height={28} className="h-full w-full object-contain" />
+          </div>
           <span className="text-sm font-bold">Zambia Revenue Authority</span>
         </div>
         <div>
