@@ -38,11 +38,14 @@ export function SignupFormShell() {
   const [role, setRole] = useState<SignupRole>("taxpayer");
   const [stage, setStage] = useState<Stage>({ name: "form" });
   const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const [pending, setPending] = useState<{ registrationNumber: string; userId: string } | null>(null);
 
-  function handleSubmit(profile: TaxpayerProfile | PractitionerProfile, password: string) {
+  async function handleSubmit(profile: TaxpayerProfile | PractitionerProfile, password: string) {
     setError(null);
-    const result = signup(profile, password);
+    setSubmitting(true);
+    const result = await signup(profile, password);
+    setSubmitting(false);
     if (!result.ok) {
       setError(result.error);
       return;
@@ -114,9 +117,9 @@ export function SignupFormShell() {
       </div>
 
       {role === "taxpayer" ? (
-        <TaxpayerForm onSubmit={handleSubmit} submitting={false} error={error} />
+        <TaxpayerForm onSubmit={handleSubmit} submitting={submitting} error={error} />
       ) : (
-        <PractitionerForm onSubmit={handleSubmit} submitting={false} error={error} />
+        <PractitionerForm onSubmit={handleSubmit} submitting={submitting} error={error} />
       )}
 
       <p className="mt-6 text-center text-sm text-slate-500">

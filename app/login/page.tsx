@@ -33,20 +33,19 @@ export default function LoginPage() {
   const [pendingRole, setPendingRole] = useState<Role | null>(null);
   const [otp, setOtp] = useState("");
   const [otpError, setOtpError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  function handleCredentialsSubmit(e: React.FormEvent) {
+  async function handleCredentialsSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const result = login(username, password);
+    setSubmitting(true);
+    const result = await login(username, password);
+    setSubmitting(false);
     if (!result.ok) {
       setError(result.error);
       return;
     }
     setError(null);
-    const stored = JSON.parse(window.localStorage.getItem("zra_users_v1") ?? "[]") as {
-      profile: { username: string; role: Role };
-    }[];
-    const match = stored.find((u) => u.profile.username.toLowerCase() === username.trim().toLowerCase());
-    setPendingRole(match?.profile.role ?? "taxpayer");
+    setPendingRole(result.role);
     setStage("otp");
   }
 
@@ -112,8 +111,8 @@ export default function LoginPage() {
 
                 {error && <p className="rounded-md bg-red-50 px-4 py-2 text-sm text-red-700">{error}</p>}
 
-                <button type="submit" className="btn-primary w-full">
-                  Log In
+                <button type="submit" className="btn-primary w-full" disabled={submitting}>
+                  {submitting ? "Logging in..." : "Log In"}
                 </button>
 
                 <button
