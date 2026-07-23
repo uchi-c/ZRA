@@ -81,9 +81,9 @@ export type UserProfile =
   | ConsultantProfile
   | InstitutionalProfile;
 
-export interface StoredUser {
-  profile: UserProfile;
-  password: string;
+export interface AuthUser {
+  id: string;
   registrationNumber: string;
-  userId: string;
+  userCode: string;
+  profile: UserProfile;
 }
